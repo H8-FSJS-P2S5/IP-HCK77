@@ -1,2 +1,3 @@
 # PlotAlchemy
-AI driven story plot recommendation tools
+
+PlotAlchemy is a narrative recommendation tool designed for manga and novel creators
