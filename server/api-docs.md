@@ -396,6 +396,14 @@ _Response (401 - Unauthorized)_
 }
 ```
 
+_Response (403 - Forbidden)_
+
+```json
+{
+  "message": "You have no access"
+}
+```
+
 _Response (500 - Internal Server Error)_
 
 ```json
