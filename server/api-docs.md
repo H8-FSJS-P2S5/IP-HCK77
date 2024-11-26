@@ -13,7 +13,7 @@ Routes below need authentication:
 
 - `POST /cauldrons/:cauldronId/potions`
 - `GET /cauldrons`
-- `PUT /profile/`
+- `PUT /profile`
 
 Routes below need authorization:
 
