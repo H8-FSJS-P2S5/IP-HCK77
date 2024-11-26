@@ -17,5 +17,10 @@ router.put(
   guardCauldron,
   PotionController.updatePotion
 );
+router.delete(
+  "/cauldrons/:cauldronId/potions/:potionId",
+  guardCauldron,
+  PotionController.deletePotion
+);
 
 module.exports = router;

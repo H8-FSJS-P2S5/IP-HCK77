@@ -51,27 +51,26 @@ class PotionController {
     }
   }
 
-  static async deleteProduct(req, res, next) {
+  static async deletePotion(req, res, next) {
     try {
-      let { id } = req.params;
-      let product = await Product.findByPk(id);
+      let { potionId } = req.params;
+      let potion = await Potion.findByPk(potionId);
 
-      //check if data is found
-      if (!product) {
+      //check if potion is found
+      if (!potion) {
         next({
           name: "Not Found",
-          message: `Error product with id: ${id} not found`,
+          message: `Error potion with ID: ${potionId} not found`,
         });
         return;
       }
-      const deletedProductName = product.name;
-      //update data
-      await product.destroy();
+
+      await potion.destroy();
       res.status(200).json({
-        message: `${deletedProductName} success to delete`,
+        message: "Successfully delete potion",
       });
     } catch (error) {
-      console.log("🚀 ~ ProductController ~ deleteProduct ~ error:", error);
+      console.log("🚀 ~ PotionController ~ deletePotion ~ error:", error);
       next(error);
     }
   }
