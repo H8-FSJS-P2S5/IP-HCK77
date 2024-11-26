@@ -7,7 +7,7 @@ const generateRecommendation = async (synopsis, genre) => {
       Analyze
       ${
         typeof mangaByGenre == "object"
-          ? `the following top-ranking ${genre.name} manga synopses: ${mangasByGenre} also `
+          ? `the following top-ranking ${genre.name} manga synopses: ${mangaByGenre} also `
           : ``
       }
       current grossing ${genre.name} manga synopses
