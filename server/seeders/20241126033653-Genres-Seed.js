@@ -1,25 +1,18 @@
 "use strict";
 
+const axios = require("axios").default;
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-     */
-    let genres = [
-      { name: "Action" },
-      { name: "Adventure" },
-      { name: "Romance" },
-      { name: "Comedy" },
-      { name: "Drama" },
-    ];
+    const response = await axios.get("https://api.jikan.moe/v4/genres/manga");
+    let genres = response.data.data;
+    console.log(genres);
+
     genres = genres.map((el) => {
+      delete el.mal_id;
+      delete el.count;
+      delete el.url;
       el.createdAt = el.updatedAt = new Date();
       return el;
     });
