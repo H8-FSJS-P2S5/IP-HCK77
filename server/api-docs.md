@@ -235,7 +235,7 @@ _Response (200 - Success)_
 
 Description:
 
-- update user cauldron
+- update user cauldron name
 
 Request:
 
@@ -252,6 +252,14 @@ Request:
 ```json
 {
   "Authorization": "Bearer <access_token>"
+}
+```
+
+- body:
+
+```json
+{
+  "name": "string"
 }
 ```
 
