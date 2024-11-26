@@ -95,7 +95,7 @@ describe("Get Cauldron", () => {
       .set("Authorization", `Bearer ${token}`);
     console.log(response.body);
     expect(response.status).toBe(200);
-    expect(response.body.cauldron).toBeInstanceOf(Object);
-    expect(response.body.cauldron[0]).toHaveProperty("id", expect.any(Number));
+    expect(response.body.cauldrons).toBeInstanceOf(Object);
+    expect(response.body.cauldrons[0]).toHaveProperty("id", expect.any(Number));
   });
 });
