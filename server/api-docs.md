@@ -12,14 +12,14 @@ List of available endpoints:
 Routes below need authentication:
 
 - `POST /cauldrons/:cauldronId/potions`
+- `GET /cauldrons`
 
 Routes below need authorization:
 
 > the request user must be owner of the product
 
 - `PUT /profile/`
-- `GET /cauldrons`
-- `PUT /cauldrons`
+- `PUT /cauldrons/:cauldronId`
 - `PUT /cauldrons/:cauldronId/potions/:potionId`
 - `DELETE /cauldrons/:cauldronId/potions/:potionId`
 
@@ -263,6 +263,14 @@ _Response (200 - Success)_
 }
 ```
 
+_Response (404 - Error not Found)_
+
+```json
+{
+  "message": "Cauldron not found"
+}
+```
+
 ## 9. PUT /cauldrons/:cauldronId/potions/:potionId
 
 Description:
@@ -311,6 +319,10 @@ _Response (404 - Error not Found)_
 {
   "message": "Error potion with ID: <id> not found"
 }
+- OR
+{
+  "message": "Cauldron not found"
+}
 ```
 
 ## 10. DELETE /cauldrons/:cauldronId/potions/:potionId
@@ -343,6 +355,18 @@ _Response (200 - Success)_
 ```json
 {
   "message": "Successfully delete potion"
+}
+```
+
+_Response (404 - Error not Found)_
+
+```json
+{
+  "message": "Error potion with ID: <id> not found"
+}
+- OR
+{
+  "message": "Cauldron not found"
 }
 ```
 
