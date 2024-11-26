@@ -19,6 +19,7 @@ Routes below need authorization:
 
 - `PUT /profile/`
 - `GET /cauldrons`
+- `PUT /cauldrons`
 - `PUT /cauldrons/:cauldronId/potions/:potionId`
 - `DELETE /cauldrons/:cauldronId/potions/:potionId`
 
