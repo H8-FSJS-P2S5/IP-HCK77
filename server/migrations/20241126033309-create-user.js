@@ -11,8 +11,11 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        unique: {
-          msg: "Email is required",
+        unique: true,
+        validate: {
+          isEmail: {
+            msg: "Invalid email format",
+          },
         },
       },
       password: {

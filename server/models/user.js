@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const { hashPassword } = require("../helpers/hashPassword");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -18,9 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: {
-          msg: "Email is required",
-        },
+        unique: true,
         validate: {
           isEmail: {
             msg: "Invalid email format",
@@ -45,9 +44,14 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      isVerified: DataTypes.BOOLEAN,
+      isVerified: { type: DataTypes.BOOLEAN, defaultValue: false },
     },
     {
+      hooks: {
+        beforeCreate: (user) => {
+          user.password = hashPassword(user.password);
+        },
+      },
       sequelize,
       modelName: "User",
     }

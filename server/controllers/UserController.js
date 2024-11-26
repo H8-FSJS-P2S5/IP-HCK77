@@ -1,11 +1,13 @@
 const { comparePassword } = require("../helpers/hashPassword");
 const { generateToken } = require("../helpers/token");
-const { User, Profile } = require("../models");
+const { User, Profile, Cauldron } = require("../models");
 
 class UserController {
   static async register(req, res, next) {
     try {
       const newUser = await User.create(req.body);
+      await Profile.create({ UserId: newUser.id });
+      await Cauldron.create({ UserId: newUser.id });
       res.status(201).json({
         id: newUser.id,
         email: newUser.email,

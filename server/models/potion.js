@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Potion.init(
     {
-      recommendation: DataTypes.STRING,
+      recommendation: { type: DataTypes.STRING, defaultValue: "" },
       GenreId: DataTypes.INTEGER,
       CauldronId: DataTypes.INTEGER,
     },
