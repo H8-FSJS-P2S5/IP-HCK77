@@ -207,22 +207,6 @@ _Response (200 - Success)_
 }
 ```
 
-_Response (403 - Forbidden)_
-
-```json
-{
-  "message": "You are not authorized"
-}
-```
-
-_Response (404 - Error not Found)_
-
-```json
-{
-  "message": "Profile Not Found"
-}
-```
-
 ## 7. GET /cauldrons
 
 Description:
