@@ -174,21 +174,13 @@ _Response (404 - Error not Found)_
 }
 ```
 
-## 6. PUT /profile/:userId
+## 6. PUT /profile/
 
 Description:
 
 - update user profile
 
 Request:
-
-- params:
-
-```json
-{
-  "userId": "number (required)"
-}
-```
 
 - headers:
 
@@ -231,64 +223,7 @@ _Response (404 - Error not Found)_
 }
 ```
 
-## 7. PATCH /profile/:userId/profilePicture
-
-Description:
-
-- upload and update profile picture
-
-Request:
-
-- params:
-
-```json
-{
-  "id": "number (required)"
-}
-```
-
-- headers:
-
-```json
-{
-  "Authorization": "Bearer <access_token>",
-  "Content-Type": "multipart/form-data"
-}
-```
-
-- body:
-
-```json
-{
-  "image": "file"
-}
-```
-
-_Response (200 - Success)_
-
-```json
-{
-  "message": "Successfully Update Profile Picture"
-}
-```
-
-_Response (403 - Forbidden)_
-
-```json
-{
-  "message": "You are not authorized"
-}
-```
-
-_Response (404 - Error not Found)_
-
-```json
-{
-  "message": "Profile Not Found"
-}
-```
-
-## 8. GET /cauldrons
+## 7. GET /cauldrons
 
 Description:
 
@@ -309,6 +244,38 @@ _Response (200 - Success)_
 ```json
 {
   "cauldron": "array <cauldron>"
+}
+```
+
+## 8. PUT /cauldrons/:cauldronId
+
+Description:
+
+- update user cauldron
+
+Request:
+
+- params:
+
+```json
+{
+  "cauldronId": "number (required)"
+}
+```
+
+- headers:
+
+```json
+{
+  "Authorization": "Bearer <access_token>"
+}
+```
+
+_Response (200 - Success)_
+
+```json
+{
+  "name": "string"
 }
 ```
 
