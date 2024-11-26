@@ -13,12 +13,12 @@ Routes below need authentication:
 
 - `POST /cauldrons/:cauldronId/potions`
 - `GET /cauldrons`
+- `PUT /profile/`
 
 Routes below need authorization:
 
 > the request user must be owner of the product
 
-- `PUT /profile/`
 - `PUT /cauldrons/:cauldronId`
 - `PUT /cauldrons/:cauldronId/potions/:potionId`
 - `DELETE /cauldrons/:cauldronId/potions/:potionId`
