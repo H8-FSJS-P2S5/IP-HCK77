@@ -118,8 +118,7 @@ _Response (200 - Success)_
 
 ```json
 {
-  "name": "string",
-  "recommendation": "string"
+  "genres": "array"
 }
 ```
 
