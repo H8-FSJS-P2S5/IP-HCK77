@@ -27,8 +27,6 @@ let cauldrons = [
 let profiles = [
   {
     fullName: "admin",
-    profilePicture:
-      "https://images.pexels.com/photos/6129297/pexels-photo-6129297.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
     UserId: 1,
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -91,7 +89,6 @@ afterAll(async () => {
 });
 
 describe("Update Profile", () => {
-  //   console.log(token, "TOKEN===========");
   let profile = {
     fullName: "Oyah Ojak",
     profilePicture:
@@ -102,7 +99,6 @@ describe("Update Profile", () => {
       .put("/profile/")
       .set("Authorization", `Bearer ${token}`)
       .send(profile);
-    // console.log(response.body);
     expect(response.status).toBe(200);
     expect(response.body.message).toBe("Successfully update profile");
   });
