@@ -17,8 +17,7 @@ Routes below need authorization:
 
 > the request user must be owner of the product
 
-- `PUT /profile/:userId`
-- `PATCH /profile/:userId/profilePicture`
+- `PUT /profile/`
 - `GET /cauldrons`
 - `PUT /cauldrons/:cauldronId/potions/:potionId`
 - `DELETE /cauldrons/:cauldronId/potions/:potionId`
