@@ -1,8 +1,3 @@
-const convertImgToString = require("../helpers/convertBase64");
-const { searchOption, filterOption } = require("../helpers/filterSearch");
-const paginationOption = require("../helpers/pagination");
-const sortOption = require("../helpers/sort");
-const uploadFile = require("../helpers/upload");
 const { Potion, Cauldron } = require("../models");
 
 class PotionController {
