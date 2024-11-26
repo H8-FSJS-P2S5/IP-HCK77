@@ -42,7 +42,7 @@ class UserController {
       if (!user) {
         next({
           name: "Authentication Failed",
-          message: "Error invalid email or username or password",
+          message: "Invalid email/password",
         });
         return;
       }
@@ -52,7 +52,7 @@ class UserController {
       if (!isValidate) {
         next({
           name: "Authentication Failed",
-          message: "Error invalid email or username or password",
+          message: "Invalid email/password",
         });
         return;
       }
@@ -61,7 +61,6 @@ class UserController {
 
       res.status(200).json({
         access_token,
-        message: `${user.username ? user.username : user.email} login success`,
       });
     } catch (error) {
       console.log("🚀 ~ Controller ~ login ~ error:", error);

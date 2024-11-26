@@ -66,8 +66,8 @@ describe("Login", () => {
   test("success login account", async () => {
     const response = await request(app).post("/login").send(userLogin);
     console.log(response.body);
-    expect(response.status).toBe(201);
-    expect(response.body.email).toBe("admin@gmail.com");
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("access_token", expect.any(String));
   });
 
   test("error login because not input email", async () => {
