@@ -3,93 +3,31 @@ const { searchOption, filterOption } = require("../helpers/filterSearch");
 const paginationOption = require("../helpers/pagination");
 const sortOption = require("../helpers/sort");
 const uploadFile = require("../helpers/upload");
-const { Product, User, Category } = require("../models");
+const { Potion, Cauldron } = require("../models");
 
-class ProductController {
-  static async showProducts(req, res, next) {
+class PotionController {
+  static async createPotion(req, res, next) {
     try {
-      let option = {
-        include: [
-          {
-            model: User,
-            attributes: { exclude: ["password"] },
-          },
-          {
-            model: Category,
-          },
-        ],
-        order: [["createdAt", "ASC"]],
-      };
-      const { filter, sort, page, search } = req.query;
-
-      //read pagination in sequelize docs
-      let limit = 10;
-      let pageNumber = 1;
-      if (page) {
-        option = paginationOption(page, option);
-        limit = page.size ? page.size : limit;
-        pageNumber = page.number ? page.number : pageNumber;
-      }
-
-      if (sort) {
-        //can be use link this in route /products?sort[by]=createdAt&sort[order]=asc
-        option = sortOption(sort, option);
-      }
-
-      if (search) {
-        option = searchOption(search, option);
-      }
-      if (filter) {
-        option = filterOption(filter, option);
-      }
-
-      let { count, rows } = await Product.findAndCountAll(option);
-      res.status(200).json({
-        message: "Successfully Display Products",
-        page: +pageNumber,
-        totalProduct: +count,
-        totalPage: Math.ceil(count / limit), //data length divided with limit each page, to know page number. using ciel cause if minimum page quantity is 1
-        products: rows,
-      });
-    } catch (error) {
-      console.log("🚀 ~ ProductController ~ showProducts ~ error:", error);
-      next(error);
-    }
-  }
-
-  static async showProductById(req, res, next) {
-    try {
-      let { id } = req.params;
-      let product = await Product.findByPk(id);
-      if (!product) {
+      const { cauldronId } = req.params;
+      const cauldron = await Cauldron.findByPk(cauldronId);
+      if (!cauldron) {
         next({
           name: "Not Found",
-          message: `Error product with ID: ${id} not found`,
+          message: "Cauldron not found",
         });
         return;
       }
-
-      res.status(200).json({
-        message: "Successfully Display Product",
-        product,
-      });
-    } catch (error) {
-      console.log("🚀 ~ ProductController ~ showProductById ~ error:", error);
-      next(error);
-    }
-  }
-
-  static async addProduct(req, res, next) {
-    try {
-      //add authorId to req.body
-      req.body.authorId = req.user.id;
-      let createdProduct = await Product.create(req.body);
+      req.body.UserId = req.user.id;
+      req.body.CauldronId = cauldronId;
+      let newPotion = await Potion.create(req.body);
       res.status(201).json({
-        message: `Successfully Added ${createdProduct.name}`,
-        product: createdProduct,
+        id: newPotion.id,
+        recommendation: newPotion.recommendation,
+        GenreId: newPotion.GenreId,
+        CauldronId: newPotion.CauldronId,
       });
     } catch (error) {
-      console.log("🚀 ~ ProductController ~ addProduct ~ error:", error);
+      console.log("🚀 ~ PotionController ~ createPotion ~ error:", error);
       next(error);
     }
   }
@@ -194,4 +132,77 @@ class ProductController {
   }
 }
 
-module.exports = ProductController;
+module.exports = PotionController;
+
+// static async showProducts(req, res, next) {
+//   try {
+//     let option = {
+//       include: [
+//         {
+//           model: User,
+//           attributes: { exclude: ["password"] },
+//         },
+//         {
+//           model: Category,
+//         },
+//       ],
+//       order: [["createdAt", "ASC"]],
+//     };
+//     const { filter, sort, page, search } = req.query;
+
+//     //read pagination in sequelize docs
+//     let limit = 10;
+//     let pageNumber = 1;
+//     if (page) {
+//       option = paginationOption(page, option);
+//       limit = page.size ? page.size : limit;
+//       pageNumber = page.number ? page.number : pageNumber;
+//     }
+
+//     if (sort) {
+//       //can be use link this in route /products?sort[by]=createdAt&sort[order]=asc
+//       option = sortOption(sort, option);
+//     }
+
+//     if (search) {
+//       option = searchOption(search, option);
+//     }
+//     if (filter) {
+//       option = filterOption(filter, option);
+//     }
+
+//     let { count, rows } = await Product.findAndCountAll(option);
+//     res.status(200).json({
+//       message: "Successfully Display Products",
+//       page: +pageNumber,
+//       totalProduct: +count,
+//       totalPage: Math.ceil(count / limit), //data length divided with limit each page, to know page number. using ciel cause if minimum page quantity is 1
+//       products: rows,
+//     });
+//   } catch (error) {
+//     console.log("🚀 ~ ProductController ~ showProducts ~ error:", error);
+//     next(error);
+//   }
+// }
+
+// static async showProductById(req, res, next) {
+//   try {
+//     let { id } = req.params;
+//     let product = await Product.findByPk(id);
+//     if (!product) {
+//       next({
+//         name: "Not Found",
+//         message: `Error product with ID: ${id} not found`,
+//       });
+//       return;
+//     }
+
+//     res.status(200).json({
+//       message: "Successfully Display Product",
+//       product,
+//     });
+//   } catch (error) {
+//     console.log("🚀 ~ ProductController ~ showProductById ~ error:", error);
+//     next(error);
+//   }
+// }
