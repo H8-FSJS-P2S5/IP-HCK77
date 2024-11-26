@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Cauldron.init(
     {
-      name: { type: DataTypes.STRING, defaultValue: "" },
+      name: { type: DataTypes.STRING, defaultValue: "New Cauldron" },
       UserId: DataTypes.INTEGER,
     },
     {
