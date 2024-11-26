@@ -259,7 +259,7 @@ _Response (200 - Success)_
 
 ```json
 {
-  "name": "string"
+  "message": "Successfully update cauldron"
 }
 ```
 
