@@ -146,6 +146,14 @@ describe("Delete Potion By Id", () => {
     expect(response.body.message).toBe("Successfully delete potion");
   });
 
+  test("error delete cauldron because potion not found after delete", async () => {
+    const response = await request(app)
+      .delete("/cauldrons/1/potions/1")
+      .set("Authorization", `Bearer ${token}`);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe("Error potion with ID: 1 not found");
+  });
+
   test("error delete potion because unauthorized", async () => {
     const response = await request(app)
       .delete("/cauldrons/2/potions/1")
