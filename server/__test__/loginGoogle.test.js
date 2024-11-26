@@ -59,12 +59,11 @@ afterAll(async () => {
 
 let userLogin = {
   email: "admin@gmail.com",
-  password: "123456",
 };
 
-describe("Login", () => {
+describe("Login with Google account", () => {
   test("success login account", async () => {
-    const response = await request(app).post("/login").send(userLogin);
+    const response = await request(app).post("/login/google").send(userLogin);
     console.log(response.body);
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("access_token", expect.any(String));
@@ -73,24 +72,10 @@ describe("Login", () => {
   test("error login because not input email", async () => {
     let { ...userBadRequest } = userLogin;
     delete userBadRequest.email;
-    const response = await request(app).post("/login").send(userBadRequest);
+    const response = await request(app)
+      .post("/login/google")
+      .send(userBadRequest);
     expect(response.status).toBe(400);
     expect(response.body.message).toBe("Email is required");
-  });
-
-  test("error login because not input password", async () => {
-    let { ...userBadRequest } = userLogin;
-    delete userBadRequest.password;
-    const response = await request(app).post("/login").send(userBadRequest);
-    expect(response.status).toBe(400);
-    expect(response.body.message).toBe("Password is required");
-  });
-
-  test("error login because invalid password", async () => {
-    let { ...userBadRequest } = userLogin;
-    userBadRequest.password = "qqqq";
-    const response = await request(app).post("/login").send(userBadRequest);
-    expect(response.status).toBe(401);
-    expect(response.body.message).toBe("Invalid email/password");
   });
 });
