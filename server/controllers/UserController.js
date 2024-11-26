@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const { comparePassword } = require("../helpers/hashPassword");
 const { generateToken } = require("../helpers/token");
 const { User, Profile, Cauldron } = require("../models");
@@ -64,6 +65,36 @@ class UserController {
       });
     } catch (error) {
       console.log("🚀 ~ Controller ~ login ~ error:", error);
+      next(error);
+    }
+  }
+  static async loginGoogle(req, res, next) {
+    try {
+      const { email } = req.body;
+      if (!email) {
+        next({
+          name: "Validation Error",
+          message: "Email is required",
+        });
+        return;
+      }
+      let user = await User.findOne({ where: { email } });
+      if (!user) {
+        user = await User.create(
+          {
+            email,
+            password: String(Math.random() * 100),
+          },
+          { hooks: false }
+        );
+      }
+      const access_token = generateToken(user.id);
+
+      res.status(200).json({
+        access_token,
+      });
+    } catch (error) {
+      console.log("🚀 ~ UserController ~ loginGoogle ~ error:", error);
       next(error);
     }
   }
