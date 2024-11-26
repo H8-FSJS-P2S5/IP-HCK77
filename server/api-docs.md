@@ -227,7 +227,7 @@ _Response (200 - Success)_
 
 ```json
 {
-  "cauldron": "array <cauldron>"
+  "cauldrons": "array <cauldron>"
 }
 ```
 
