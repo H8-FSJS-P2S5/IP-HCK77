@@ -28,5 +28,4 @@ dist-ssr
 __deployment__
 
 #test
-__test__
 coverage
