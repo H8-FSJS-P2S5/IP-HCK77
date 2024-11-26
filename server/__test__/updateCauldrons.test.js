@@ -99,6 +99,6 @@ describe("Update Cauldron By Id", () => {
       .send(cauldron);
     console.log(response.body);
     expect(response.status).toBe(200);
-    expect(response.body.message).toBe("Successfully update cauldron name");
+    expect(response.body.message).toBe("Successfully update cauldron");
   });
 });
