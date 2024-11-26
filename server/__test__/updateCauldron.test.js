@@ -13,6 +13,13 @@ let users = [
     createdAt: new Date(),
     updatedAt: new Date(),
   },
+  {
+    email: "user@gmail.com",
+    password: hashPassword("123456"),
+    isVerified: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
 ];
 
 let cauldrons = [
@@ -22,12 +29,24 @@ let cauldrons = [
     createdAt: new Date(),
     updatedAt: new Date(),
   },
+  {
+    name: "Gundam Cauldron",
+    UserId: 2,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
 ];
 
 let profiles = [
   {
     fullName: "admin",
     UserId: 1,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    fullName: "user",
+    UserId: 2,
     createdAt: new Date(),
     updatedAt: new Date(),
   },
@@ -100,6 +119,16 @@ describe("Update Cauldron By Id", () => {
     // console.log(response.body);
     expect(response.status).toBe(200);
     expect(response.body.message).toBe("Successfully update cauldron");
+  });
+
+  test("error update cauldron because unauthorized", async () => {
+    const response = await request(app)
+      .put("/cauldrons/2")
+      .set("Authorization", `Bearer ${token}`)
+      .send(cauldron);
+    // console.log(response.body);
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe(`You have no access`);
   });
 
   test("error update cauldron because cauldron not found", async () => {
