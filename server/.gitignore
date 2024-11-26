@@ -26,3 +26,4 @@ dist-ssr
 #essential
 .env
 __deployment__
+__test__
