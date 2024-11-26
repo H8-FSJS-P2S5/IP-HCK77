@@ -27,35 +27,26 @@ class PotionController {
     }
   }
 
-  static async editProduct(req, res, next) {
+  static async updatePotion(req, res, next) {
     try {
-      let { id } = req.params;
-      let product = await Product.findByPk(id);
+      let { potionId } = req.params;
+      let potion = await Potion.findByPk(potionId);
 
-      //check if data is found
-      if (!product) {
+      //check if potion is found
+      if (!potion) {
         next({
           name: "Not Found",
-          message: `Error product with id: ${id} not found`,
+          message: `Error potion with ID: ${potionId} not found`,
         });
         return;
       }
-      //update data
-      if (req.user.role.toLowerCase() == "staff") {
-        req.body.authorId = req.user.id; //assign body with current user
-      } else {
-        req.body.authorId = product.authorId;
-      }
 
-      let updatedProduct = await product.update(req.body, {
-        individualHooks: false, //if want to use hooks after update, change to true
-      });
+      await potion.update(req.body);
       res.status(200).json({
-        message: `Successfully Update Product with ID: ${id}`,
-        product: updatedProduct,
+        message: `Successfully update potion with ID: ${potionId}`,
       });
     } catch (error) {
-      console.log("🚀 ~ ProductController ~ editProduct ~ error:", error);
+      console.log("🚀 ~ PotionController ~ updatePotion ~ error:", error);
       next(error);
     }
   }
@@ -81,47 +72,6 @@ class PotionController {
       });
     } catch (error) {
       console.log("🚀 ~ ProductController ~ deleteProduct ~ error:", error);
-      next(error);
-    }
-  }
-
-  static async changeImageUrl(req, res, next) {
-    try {
-      let { id } = req.params;
-      let product = await Product.findByPk(id);
-      //check if data is found
-      if (!product) {
-        next({
-          name: "Not Found",
-          message: `Error product with id: ${id} not found`,
-        });
-        return;
-      }
-
-      if (!req.file) {
-        next({
-          name: "Validation Error",
-          message: `Please Insert Image`,
-        });
-        return;
-      }
-
-      let fileUpload = await convertImgToString(req.file);
-      let { secure_url } = await uploadFile(fileUpload, req.file.originalname);
-
-      //update data
-      let updatedProduct = await product.update(
-        { imgUrl: secure_url },
-        {
-          individualHooks: false, //if want to use hooks after update, change to true
-        }
-      );
-      res.status(200).json({
-        message: `Image ${product.name} success to update`,
-        product: updatedProduct,
-      });
-    } catch (error) {
-      console.log("🚀 ~ ProductController ~ changeImageUrl ~ error:", error);
       next(error);
     }
   }
@@ -198,6 +148,47 @@ module.exports = PotionController;
 //     });
 //   } catch (error) {
 //     console.log("🚀 ~ ProductController ~ showProductById ~ error:", error);
+//     next(error);
+//   }
+// }
+
+// static async changeImageUrl(req, res, next) {
+//   try {
+//     let { id } = req.params;
+//     let product = await Product.findByPk(id);
+//     //check if data is found
+//     if (!product) {
+//       next({
+//         name: "Not Found",
+//         message: `Error product with id: ${id} not found`,
+//       });
+//       return;
+//     }
+
+//     if (!req.file) {
+//       next({
+//         name: "Validation Error",
+//         message: `Please Insert Image`,
+//       });
+//       return;
+//     }
+
+//     let fileUpload = await convertImgToString(req.file);
+//     let { secure_url } = await uploadFile(fileUpload, req.file.originalname);
+
+//     //update data
+//     let updatedProduct = await product.update(
+//       { imgUrl: secure_url },
+//       {
+//         individualHooks: false, //if want to use hooks after update, change to true
+//       }
+//     );
+//     res.status(200).json({
+//       message: `Image ${product.name} success to update`,
+//       product: updatedProduct,
+//     });
+//   } catch (error) {
+//     console.log("🚀 ~ ProductController ~ changeImageUrl ~ error:", error);
 //     next(error);
 //   }
 // }

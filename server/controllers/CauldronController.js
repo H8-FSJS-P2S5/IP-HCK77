@@ -15,7 +15,7 @@ class CauldronController {
     }
   }
 
-  static async updateCauldrons(req, res, next) {
+  static async updateCauldron(req, res, next) {
     try {
       const { cauldronId } = req.params;
       let cauldron = await Cauldron.findByPk(cauldronId);

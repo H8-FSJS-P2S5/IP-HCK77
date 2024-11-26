@@ -10,7 +10,12 @@ router.get("/cauldrons", CauldronController.showCauldrons);
 router.put(
   "/cauldrons/:cauldronId",
   guardCauldron,
-  CauldronController.updateCauldrons
+  CauldronController.updateCauldron
+);
+router.put(
+  "/cauldrons/:cauldronId/potions/:potionId",
+  guardCauldron,
+  PotionController.updatePotion
 );
 
 module.exports = router;
