@@ -64,11 +64,15 @@ let potions = [
     recommendation: "potion1",
     GenreId: 1,
     CauldronId: 1,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     recommendation: "potion2",
     GenreId: 4,
     CauldronId: 2,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
 ];
 
