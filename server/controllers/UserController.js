@@ -87,6 +87,8 @@ class UserController {
           },
           { hooks: false }
         );
+        await Profile.create({ UserId: user.id });
+        await Cauldron.create({ UserId: user.id });
       }
       const access_token = generateToken(user.id);
 
