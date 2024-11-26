@@ -7,12 +7,10 @@ List of available endpoints:
 - `POST /register`
 - `POST /login/google`
 - `POST /login`
-- `GET /pub/potions`
-- `GET /pub/potions/:potionId`
+- `GET /genres`
 
 Routes below need authentication:
 
-- `POST /genres`
 - `POST /cauldrons/:cauldronId/potions`
 
 Routes below need authorization:
@@ -108,101 +106,24 @@ _Response (401 - Unauthorized)_
 }
 ```
 
-## 3. GET /pub/potions
+## 4. GET /genres
 
 Description:
 
-- show list of some recommendation (as potions)
+- show list of recommendation according to genres
 
 Request:
-
-- query:
-
-```json
-{
-  "filter": "number",
-  "sort": "string (table column, add '-' to DESC)",
-  "page[size]": "number",
-  "page[number]": "number",
-  "search": "string"
-}
-```
 
 _Response (200 - Success)_
 
 ```json
 {
-  "potions": "array <list_of_potions>",
-  "pagination": "object <pagination info>"
+  "name": "string",
+  "recommendation": "string"
 }
 ```
 
-## 4. GET /pub/potions/:potionId
-
-Description:
-
-- show potions by potionId
-
-Request:
-
-- params:
-
-```json
-{
-  "potionId": "number (required)"
-}
-```
-
-_Response (200 - Success)_
-
-```json
-{
-  "potion": "object"
-}
-```
-
-_Response (404 - Error not Found)_
-
-```json
-{
-  "message": "Error potion with ID:<id> not found"
-}
-```
-
-## 5. POST /genres
-
-Description:
-
-- add a genre to the system
-
-Request:
-
-- headers:
-
-```json
-{
-  "Authorization": "Bearer <access_token>"
-}
-```
-
-- body:
-
-```json
-{
-  "name": "string (required)"
-}
-```
-
-_Response (201 - Created)_
-
-```json
-{
-  "id": "number",
-  "name": "string"
-}
-```
-
-## 6. POST /cauldrons/:cauldronId/potions
+## 5. POST /cauldrons/:cauldronId/potions
 
 Description:
 
@@ -254,7 +175,7 @@ _Response (404 - Error not Found)_
 }
 ```
 
-## 7. PUT /profile/:userId
+## 6. PUT /profile/:userId
 
 Description:
 
@@ -311,7 +232,7 @@ _Response (404 - Error not Found)_
 }
 ```
 
-## 8. PATCH /profile/:userId/profilePicture
+## 7. PATCH /profile/:userId/profilePicture
 
 Description:
 
@@ -368,7 +289,7 @@ _Response (404 - Error not Found)_
 }
 ```
 
-## 9. GET /cauldrons
+## 8. GET /cauldrons
 
 Description:
 
@@ -392,7 +313,7 @@ _Response (200 - Success)_
 }
 ```
 
-## 10. PUT /cauldrons/:cauldronId/potions/:potionId
+## 9. PUT /cauldrons/:cauldronId/potions/:potionId
 
 Description:
 
@@ -442,7 +363,7 @@ _Response (404 - Error not Found)_
 }
 ```
 
-## 11. DELETE /cauldrons/:cauldronId/potions/:potionId
+## 10. DELETE /cauldrons/:cauldronId/potions/:potionId
 
 Description:
 
@@ -493,11 +414,10 @@ _Response (401 - Unauthorized)_
 }
 ```
 
-
 _Response (500 - Internal Server Error)_
 
 ```json
 {
   "message": "Internal Server Error"
 }
-````
+```
