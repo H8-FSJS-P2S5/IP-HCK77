@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       recommendation: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       GenreId: {
         type: Sequelize.INTEGER,
