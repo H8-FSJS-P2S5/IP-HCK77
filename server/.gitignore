@@ -26,4 +26,7 @@ dist-ssr
 #essential
 .env
 __deployment__
+
+#test
 __test__
+coverage

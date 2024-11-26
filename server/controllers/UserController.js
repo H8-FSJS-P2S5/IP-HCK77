@@ -1,28 +1,17 @@
-const { comparePassword } = require("../helpers/auth");
-const { generateToken } = require("../helpers/jwtGenerator");
-const { User } = require("../models");
+const { comparePassword } = require("../helpers/hashPassword");
+const { generateToken } = require("../helpers/token");
+const { User, Profile } = require("../models");
 
-class Controller {
-  static async home(req, res, next) {
-    try {
-      res.status(200).json({ message: "Access Success" });
-      // res.redirect("https://fauzhanwahyudi.github.io/profile/index.html");
-    } catch (error) {
-      console.log("🚀 ~ ProductController ~ home ~ error:", error);
-      next(error);
-    }
-  }
-
-  static async addUser(req, res, next) {
+class UserController {
+  static async register(req, res, next) {
     try {
       const newUser = await User.create(req.body);
       res.status(201).json({
-        message: `Successfully Register ${newUser.username}`,
         id: newUser.id,
         email: newUser.email,
       });
     } catch (error) {
-      console.log("🚀 ~ Controller ~ addUser ~ error:", error);
+      console.log("🚀 ~ Controller ~ register ~ error:", error);
       next(error);
     }
   }
@@ -78,4 +67,4 @@ class Controller {
     }
   }
 }
-module.exports = Controller;
+module.exports = UserController;

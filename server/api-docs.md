@@ -479,7 +479,7 @@ _Response (200 - Success)_
 
 _Response (400 - Bad Request)_
 
-````json
+```json
 {
   "message": "Validation error messages"
 }
