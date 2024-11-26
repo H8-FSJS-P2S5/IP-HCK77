@@ -110,7 +110,7 @@ _Response (401 - Unauthorized)_
 
 Description:
 
-- show list of recommendation according to genres
+- show list of manga genres
 
 Request:
 
