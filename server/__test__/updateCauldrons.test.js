@@ -97,8 +97,18 @@ describe("Update Cauldron By Id", () => {
       .put("/cauldrons/1")
       .set("Authorization", `Bearer ${token}`)
       .send(cauldron);
-    console.log(response.body);
+    // console.log(response.body);
     expect(response.status).toBe(200);
     expect(response.body.message).toBe("Successfully update cauldron");
+  });
+
+  test("error update cauldron because cauldron not found", async () => {
+    const response = await request(app)
+      .put("/cauldrons/1000")
+      .set("Authorization", `Bearer ${token}`)
+      .send(cauldron);
+    // console.log(response.body);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe("Cauldron not found");
   });
 });
