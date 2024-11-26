@@ -51,22 +51,6 @@ _Response (201 - Created)_
 }
 ```
 
-_Response (400 - Bad Request)_
-
-```json
-{
-  "message": "Validation error messages"
-}
-```
-
-_Response (500 - Internal Server Error)_
-
-```json
-{
-  "message": "Internal Server Error"
-}
-```
-
 ## 2. POST /login/google
 
 Description:
@@ -88,22 +72,6 @@ _Response (200 - Success)_
 ```json
 {
   "access_token": "<access_token>"
-}
-```
-
-_Response (400 - Bad Request)_
-
-```json
-{
-  "message": "Validation error messages"
-}
-```
-
-_Response (500 - Internal Server Error)_
-
-```json
-{
-  "message": "Internal Server Error"
 }
 ```
 
@@ -132,19 +100,11 @@ _Response (200 - Success)_
 }
 ```
 
-_Response (400 - Bad Request)_
+_Response (401 - Unauthorized)_
 
 ```json
 {
-  "message": "Validation error messages"
-}
-```
-
-_Response (500 - Internal Server Error)_
-
-```json
-{
-  "message": "Internal Server Error"
+  "message": "Invalid email/password"
 }
 ```
 
@@ -177,19 +137,11 @@ _Response (200 - Success)_
 }
 ```
 
-_Response (500 - Internal Server Error)_
-
-```json
-{
-  "message": "Internal Server Error"
-}
-```
-
 ## 4. GET /pub/potions/:potionId
 
 Description:
 
-- show potions by id
+- show potions by potionId
 
 Request:
 
@@ -213,15 +165,7 @@ _Response (404 - Error not Found)_
 
 ```json
 {
-  "message": "Error product with ID: <id> not found"
-}
-```
-
-_Response (500 - Internal Server Error)_
-
-```json
-{
-  "message": "Internal Server Error"
+  "message": "Error potion with ID:<id> not found"
 }
 ```
 
@@ -257,21 +201,6 @@ _Response (201 - Created)_
   "name": "string"
 }
 ```
-
-_Response (400 - Bad Request)_
-
-````json
-{
-  "message": "Validation error messages"
-}
-
-_Response (500 - Internal Server Error)_
-
-```json
-{
-  "message": "Internal Server Error"
-}
-````
 
 ## 6. POST /cauldrons/:cauldronId/potions
 
@@ -317,19 +246,11 @@ _Response (201 - Created)_
 }
 ```
 
-_Response (400 - Bad Request)_
+_Response (404 - Error not Found)_
 
 ```json
 {
-  "message": "Validation error messages"
-}
-```
-
-_Response (500 - Internal Server Error)_
-
-```json
-{
-  "message": "Internal Server Error"
+  "message": "Cauldron not found"
 }
 ```
 
@@ -366,7 +287,7 @@ Request:
 }
 ```
 
-_Response (201 - Create)_
+_Response (200 - Success)_
 
 ```json
 {
@@ -374,76 +295,11 @@ _Response (201 - Create)_
 }
 ```
 
-_Response (400 - Bad Request)_
+_Response (403 - Forbidden)_
 
 ```json
 {
-  "message": "Validation error messages"
-}
-```
-
-_Response (500 - Internal Server Error)_
-
-```json
-{
-  "message": "Internal Server Error"
-}
-```
-
-++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-## 8. PUT /products/:id
-
-Description:
-
-- update specific product
-
-Request:
-
-- params:
-
-```json
-{
-  "id": "number (required)"
-}
-```
-
-- headers:
-
-```json
-{
-  "Authorization": "Bearer <access_token>"
-}
-```
-
-- body:
-
-```json
-{
-  "name": "string (required)",
-  "description": "string",
-  "price": "number (min: 1.000.000)",
-  "stock": "number",
-  "imgUrl": "string",
-  "categoryId": "number (required)",
-  "authorId": "number (required)"
-}
-```
-
-_Response (200 - Success)_
-
-```json
-{
-  "message": "Successfully Update Product with ID: <id>",
-  "updatedProduct": "<product_data>"
-}
-```
-
-_Response (400 - Bad Request)_
-
-```json
-{
-  "message": "Validation error messages"
+  "message": "You are not authorized"
 }
 ```
 
@@ -451,71 +307,15 @@ _Response (404 - Error not Found)_
 
 ```json
 {
-  "message": "Error product with id: <id> not found"
+  "message": "Profile Not Found"
 }
 ```
 
-_Response (500 - Internal Server Error)_
-
-```json
-{
-  "message": "Internal Server Error"
-}
-```
-
-## 9. DELETE /products/:id
+## 8. PATCH /profile/:userId/profilePicture
 
 Description:
 
-- delete specific product
-
-Request:
-
-- params:
-
-```json
-{
-  "id": "number (required)"
-}
-```
-
-- headers:
-
-```json
-{
-  "Authorization": "Bearer <access_token>"
-}
-```
-
-_Response (200 - Success)_
-
-```json
-{
-  "message": "<product_name> success to delete"
-}
-```
-
-_Response (404 - Error not Found)_
-
-```json
-{
-  "message": "Error product with id: <id> not found"
-}
-```
-
-_Response (500 - Internal Server Error)_
-
-```json
-{
-  "message": "Internal Server Error"
-}
-```
-
-## 10. PATCH /products/:id/imgUrl
-
-Description:
-
-- update image to specific product
+- upload and update profile picture
 
 Request:
 
@@ -548,7 +348,15 @@ _Response (200 - Success)_
 
 ```json
 {
-  "message": "Image <product_name> success to update"
+  "message": "Successfully Update Profile Picture"
+}
+```
+
+_Response (403 - Forbidden)_
+
+```json
+{
+  "message": "You are not authorized"
 }
 ```
 
@@ -556,23 +364,15 @@ _Response (404 - Error not Found)_
 
 ```json
 {
-  "message": "Error product with id: <id> not found"
+  "message": "Profile Not Found"
 }
 ```
 
-_Response (500 - Internal Server Error)_
-
-```json
-{
-  "message": "Internal Server Error"
-}
-```
-
-## 11. GET /categories
+## 9. GET /cauldrons
 
 Description:
 
-- show all categories in the system
+- get user cauldron
 
 Request:
 
@@ -588,73 +388,15 @@ _Response (200 - Success)_
 
 ```json
 {
-  "message": "Successfully Show All Categories",
-  "categories": "<list_of_categories>"
+  "cauldron": "array <cauldron>"
 }
 ```
 
-_Response (500 - Internal Server Error)_
-
-```json
-{
-  "message": "Internal Server Error"
-}
-```
-
-## 12. POST /categories
+## 10. PUT /cauldrons/:cauldronId/potions/:potionId
 
 Description:
 
-- add category to the system
-
-Request:
-
-- headers:
-
-```json
-{
-  "Authorization": "Bearer <access_token>"
-}
-```
-
-- body:
-
-```json
-{
-  "name": "string (required)"
-}
-```
-
-_Response (201 - Created)_
-
-```json
-{
-  "message": "Successfully Add <category_name>",
-  "category": "<category data>"
-}
-```
-
-_Response (400 - Bad Request)_
-
-```json
-{
-  "message": "Validation error messages"
-}
-```
-
-_Response (500 - Internal Server Error)_
-
-```json
-{
-  "message": "Internal Server Error"
-}
-```
-
-## 13. PUT /categories/:id
-
-Description:
-
-- update category with specified id
+- update delete user potion (recommendation) by potionId
 
 Request:
 
@@ -662,7 +404,8 @@ Request:
 
 ```json
 {
-  "id": "number (required)"
+  "cauldronId": "number (required)",
+  "potionId": "number (required)"
 }
 ```
 
@@ -678,7 +421,8 @@ Request:
 
 ```json
 {
-  "name": "string (required)"
+  "recommendation": "string",
+  "GenreId": "number"
 }
 ```
 
@@ -686,42 +430,69 @@ _Response (200 - Success)_
 
 ```json
 {
-  "message": "Successfully Edit Category with ID: <id>",
-  "updatedCategory": "category_data"
+  "message": "Successfully update potion with ID: <potionId>"
 }
 ```
 
-_Response (400 - Bad Request)_
+_Response (404 - Error not Found)_
 
 ```json
+{
+  "message": "Error potion with ID: <id> not found"
+}
+```
+
+## 11. DELETE /cauldrons/:cauldronId/potions/:potionId
+
+Description:
+
+- delete user potion (recommendation) by potionId
+
+Request:
+
+- params:
+
+```json
+{
+  "cauldronId": "number (required)",
+  "potionId": "number (required)"
+}
+```
+
+- headers:
+
+```json
+{
+  "Authorization": "Bearer <access_token>"
+}
+```
+
+_Response (200 - Success)_
+
+```json
+{
+  "message": "Successfully delete potion"
+}
+```
+
+## Global Error Response
+
+_Response (400 - Bad Request)_
+
+````json
 {
   "message": "Validation error messages"
 }
 ```
 
-_Response (500 - Internal Server Error)_
+_Response (401 - Unauthorized)_
 
 ```json
 {
-  "message": "Internal Server Error"
+  "message": "Invalid token"
 }
 ```
 
-## 15. GET /pub
-
-Description:
-
-- public home page
-
-Request:
-
-_Response (200 - Success)_
-
-```json
-{
-  "message": "Access Success"
-}
-```
 
 _Response (500 - Internal Server Error)_
 
@@ -729,4 +500,4 @@ _Response (500 - Internal Server Error)_
 {
   "message": "Internal Server Error"
 }
-```
+````
