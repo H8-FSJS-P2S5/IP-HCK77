@@ -3,10 +3,10 @@ const { User } = require("../models");
 
 const authentication = async (req, res, next) => {
   try {
-    const excludedRoutes = ["/register", "/login", "/login/google", "/genre"];
-    if (excludedRoutes.includes(req.path)) {
-      return next();
-    }
+    // const excludedRoutes = ["/register", "/login", "/login/google", "/genre"];
+    // if (excludedRoutes.includes(req.path)) {
+    //   return next();
+    // }
     const authHeader = req.headers.authorization;
     if (!authHeader) {
       console.log("🚀 ~ authentication ~ authHeader:", authHeader);
