@@ -13,9 +13,23 @@ const router = createBrowserRouter([
         </div>
       </div>
     ),
+    children: [
+      {
+        path: "my-cauldron",
+        element: <LoginPage />,
+      },
+      {
+        path: "profile",
+        element: <LoginPage />,
+      },
+    ],
   },
   {
     path: "/login/google",
+    element: <LoginPage />,
+  },
+  {
+    path: "/genres",
     element: <LoginPage />,
   },
 ]);
