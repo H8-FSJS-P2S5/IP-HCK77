@@ -1,6 +1,7 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Button } from "flowbite-react";
+import LoginPage from "./pages/LoginPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
         </div>
       </div>
     ),
+  },
+  {
+    path: "/login/google",
+    element: <LoginPage />,
   },
 ]);
 function App() {
