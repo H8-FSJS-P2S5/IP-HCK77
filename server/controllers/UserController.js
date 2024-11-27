@@ -2,6 +2,7 @@ const { where } = require("sequelize");
 const { comparePassword } = require("../helpers/hashPassword");
 const { generateToken } = require("../helpers/token");
 const { User, Profile, Cauldron } = require("../models");
+const { OAuth2Client } = require("google-auth-library");
 
 class UserController {
   static async register(req, res, next) {
@@ -70,29 +71,33 @@ class UserController {
   }
   static async loginGoogle(req, res, next) {
     try {
-      const { email } = req.body;
-      if (!email) {
-        next({
-          name: "Validation Error",
-          message: "Email is required",
-        });
-        return;
-      }
-      let user = await User.findOne({ where: { email } });
-      if (!user) {
-        user = await User.create(
-          {
-            email,
-            password: String(Math.random() * 100),
-          },
-          { hooks: false }
-        );
-        await Profile.create({ UserId: user.id });
-        await Cauldron.create({ UserId: user.id });
-      }
+      console.log("google.auth")
+      const client = new OAuth2Client();
+      const { googleToken } = req.body;
+      const ticket = await client.verifyIdToken({
+        idToken: googleToken,
+        // we use our client_id from the Google console
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
+      const payload = ticket.getPayload();
+      const { email } = payload;
+      let [user, created] = await User.findOrCreate({
+        where: { email },
+        defaults: {
+          email: payload.email,
+          password: String(Math.random() * 100),
+        },
+        hooks: false,
+      });
+      await Profile.create({
+        name: payload.name,
+        profilePicture: payload.picture,
+        UserId: user.id,
+      });
+      await Cauldron.create({ UserId: user.id });
       const access_token = generateToken(user.id);
 
-      res.status(200).json({
+      res.status(created ? 201 : 200).json({
         access_token,
       });
     } catch (error) {
