@@ -392,7 +392,7 @@ Request:
 ```json
 {
   "synopsis": "string",
-  "GenreId": "number (required)"
+  "genre": "string (required)"
 }
 ```
 
