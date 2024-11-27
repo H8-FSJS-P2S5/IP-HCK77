@@ -8,7 +8,7 @@ class RecommendationController {
       if (!genre) {
         throw { name: "Validation Error", message: "Genre is required" };
       }
-      let recommendation = await generateRecommendation(synopsis, genre);
+      const {recommendation} = (await generateRecommendation(synopsis, genre))[0];
       res.status(201).json({
         recommendation,
       });

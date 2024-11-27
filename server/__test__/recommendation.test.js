@@ -59,7 +59,7 @@ afterAll(async () => {
 
 let input = {
   synopsis: "A fat guy that thrive in war zone with his smart band",
-  GenreId: 1,
+  genre: "Action",
 };
 
 describe("Generate Recommendation", () => {
@@ -71,9 +71,9 @@ describe("Generate Recommendation", () => {
 
   test("error generate recommendation because not input GenreId", async () => {
     let { ...userInput } = input;
-    delete userInput.GenreId;
+    delete userInput.genre;
     const response = await request(app).post("/recommendation").send(userInput);
     expect(response.status).toBe(400);
-    expect(response.body.message).toBe("GenreId is required");
+    expect(response.body.message).toBe("Genre is required");
   });
 });
