@@ -8,6 +8,7 @@ List of available endpoints:
 - `POST /login/google`
 - `POST /login`
 - `GET /genres`
+- `POST /recommendation`
 
 Routes below need authentication:
 
@@ -375,6 +376,31 @@ _Response (404 - Error not Found)_
 - OR
 {
   "message": "Cauldron not found"
+}
+```
+
+## 11. POST /recommendation
+
+Description:
+
+- generate recommendation using Gemini AI
+
+Request:
+
+- body:
+
+```json
+{
+  "synopsis": "string",
+  "GenreId": "number (required)"
+}
+```
+
+_Response (201 - Success)_
+
+```json
+{
+  "recommendation": "string"
 }
 ```
 
