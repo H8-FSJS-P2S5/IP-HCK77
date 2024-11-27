@@ -9,40 +9,31 @@ const { guardCauldron } = require("../middleware/authorization");
 const router = require("express").Router();
 // const authRouter = require("./authRouter");
 
-const publicRouter = require("express").Router();
-publicRouter.get("/", (req, res) => res.json("HOME"));
-publicRouter.post("/register", UserController.register);
-publicRouter.post("/login", UserController.login);
-publicRouter.post("/login/google", UserController.loginGoogle);
-publicRouter.get("/genres", GenreController.showGenres);
+router.get("/", (req, res) => res.json("HOME"));
+router.post("/register", UserController.register);
+router.post("/login", UserController.login);
+router.post("/login/google", UserController.loginGoogle);
+router.get("/genres", GenreController.showGenres);
 // router.use("/user", authRouter);
-
-const privateRouter = require("express").Router();
-privateRouter.use(authentication);
-privateRouter.post(
-  "/cauldrons/:cauldronId/potions",
-  PotionController.createPotion
-);
-privateRouter.put("/profile/", ProfileController.updateProfile);
-privateRouter.get("/cauldrons", CauldronController.showCauldrons);
-privateRouter.put(
+router.use(authentication);
+router.post("/cauldrons/:cauldronId/potions", PotionController.createPotion);
+router.put("/profile/", ProfileController.updateProfile);
+router.get("/cauldrons", CauldronController.showCauldrons);
+router.put(
   "/cauldrons/:cauldronId",
   guardCauldron,
   CauldronController.updateCauldron
 );
-privateRouter.put(
+router.put(
   "/cauldrons/:cauldronId/potions/:potionId",
   guardCauldron,
   PotionController.updatePotion
 );
-privateRouter.delete(
+router.delete(
   "/cauldrons/:cauldronId/potions/:potionId",
   guardCauldron,
   PotionController.deletePotion
 );
-
-router.use(publicRouter);
-router.use(privateRouter);
 router.use(errorHandler);
 
 module.exports = router;
