@@ -5,7 +5,7 @@
 List of available endpoints:
 
 - `POST /register`
-- `POST /login/google`
+- `POST /auth/google`
 - `POST /login`
 - `GET /genres`
 - `POST /recommendation`
@@ -50,7 +50,7 @@ _Response (201 - Created)_
 }
 ```
 
-## 2. POST /login/google
+## 2. POST /auth/google
 
 Description:
 
@@ -62,7 +62,7 @@ Request:
 
 ```json
 {
-  "access_token_google": "string (required)"
+  "googleToken": "string (required)"
 }
 ```
 
