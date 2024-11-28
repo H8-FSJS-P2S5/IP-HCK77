@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { Card, Table } from "flowbite-react";
 import { Link } from "react-router-dom";
@@ -20,8 +20,11 @@ export default function GenresPage() {
             <Table.HeadCell>MyAnimeList Link</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
-            {genresRedux.map((genre) => (
-              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+            {genresRedux.map((genre, index) => (
+              <Table.Row
+                key={index + 1}
+                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+              >
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {genre.name}
                 </Table.Cell>

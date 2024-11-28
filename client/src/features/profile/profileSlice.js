@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { serverInstance } from "../../../helpers/axiosInstance";
-
+import { serverInstance } from "../../helpers/axiosInstance";
 const initialState = {
   value: {},
 };

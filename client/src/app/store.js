@@ -1,8 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import genresReducer from "../src/features/genres/genresSlice";
-import myCauldronReducer from "../src/features/myCauldron/myCauldronSlice";
-import profileReducer from "../src/features/profile/profileSlice";
+import genresReducer from "../features/genres/genresSlice";
+import myCauldronReducer from "../features/myCauldron/myCauldronSlice";
+import profileReducer from "../features/profile/profileSlice";
+import recommendationReducer from "../features/recom/recomSlice";
 
 export const store = configureStore({
-  reducer: { genresReducer, myCauldronReducer, profileReducer },
+  reducer: {
+    genresReducer,
+    myCauldronReducer,
+    profileReducer,
+    recommendationReducer,
+  },
 });
