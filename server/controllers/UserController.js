@@ -80,28 +80,39 @@ class UserController {
         audience: process.env.GOOGLE_CLIENT_ID,
       });
       const payload = ticket.getPayload();
-      const { email } = payload;
+      const { email, given_name, picture } = payload;
       let [user, created] = await User.findOrCreate({
         where: { email },
         defaults: {
           email: payload.email,
           password: String(Math.random() * 100),
+          isVerified: payload.email_verified,
         },
         hooks: false,
       });
-      console.log(user);
-      await Profile.findOrCreate({
+      let profile = await Profile.findOne({
         where: { UserId: user.id },
-        default: {
-          name: payload.name,
-          profilePicture: payload.picture,
+      });
+      if (!profile) {
+        profile = await Profile.create({
+          fullName: given_name,
+          profilePicture: picture,
           UserId: user.id,
-        },
-      });
-      await Cauldron.findOrCreate({
+        });
+      }
+      console.log("profile", profile);
+
+      let cauldron = await Cauldron.findOne({
         where: { UserId: user.id },
-        default: { UserId: user.id },
       });
+      if (!cauldron) {
+        cauldron = await Cauldron.create({
+          name: `${given_name} Cauldron`,
+          UserId: user.id,
+        });
+      }
+      console.log("cauldron", cauldron);
+
       const access_token = generateToken(user.id);
 
       res.status(created ? 201 : 200).json({

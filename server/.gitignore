@@ -27,6 +27,7 @@ dist-ssr
 .env
 __development__
 _deployment_
+__deployment__
 
 #test
 coverage
