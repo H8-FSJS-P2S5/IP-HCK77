@@ -8,6 +8,8 @@ import {
   setPotion,
   updatePotion,
 } from "../features/potion/potionSlice";
+import { FaRegEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function MyCauldronPage() {
   const openModalRedux = useSelector((state) => state.openModalReducer.value);
@@ -26,6 +28,7 @@ export default function MyCauldronPage() {
   useEffect(() => {
     dispatch(setOpenModal(false));
     dispatch(fetchMyCauldron());
+    console.log("MyCauldronsRedux:", myCauldronsRedux);
   }, []);
   return (
     <div className="container h-screen flex justify-center items-center">
@@ -38,13 +41,17 @@ export default function MyCauldronPage() {
             <div style={{ display: "sticky", top: "0", overflow: "auto" }}>
               <h1 className="text-center font-bold">
                 {myCauldronsRedux[0].name}
+                {"  "}
+                <Link to="/user/profile">
+                  <FaRegEdit className="m-o p-0 inline" />
+                </Link>
               </h1>
             </div>
             {potions && potions.length > 0 ? (
               potions.map((potion) => (
                 <div className="container overflow-auto" key={potion.id}>
                   <Card key={potion.id}>
-                    {myCauldronsRedux[0].Potion.recommendation}
+                    {potion.recommendation}
                     <div className="flex gap-2 container justify-center">
                       <Button
                         className="bg-yellow-400"
@@ -59,7 +66,7 @@ export default function MyCauldronPage() {
                       <Button
                         className="bg-red-600"
                         style={{ width: "40%" }}
-                        onClick={() => deletePotion(potion.id)}
+                        onClick={() => dispatch(deletePotion(potion))}
                       >
                         Delete
                       </Button>

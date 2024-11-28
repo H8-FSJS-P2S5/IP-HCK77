@@ -4,10 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { fetchProfile } from "../features/profile/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { serverInstance } from "../helpers/axiosInstance";
+import { fetchMyCauldron } from "../features/myCauldron/myCauldronSlice";
 
 export default function ProfilePage() {
   const [fullName, setFullName] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
+  const [cauldronName, setCauldronName] = useState("");
+  const myCauldronsRedux = useSelector(
+    (state) => state.myCauldronReducer.value
+  );
   const profileRedux = useSelector((state) => state.profileReducer.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,11 +36,13 @@ export default function ProfilePage() {
 
   useEffect(() => {
     dispatch(fetchProfile());
+    dispatch(fetchMyCauldron());
   }, []);
 
   useEffect(() => {
     setFullName(profileRedux.fullName);
     setProfilePicture(profileRedux.profilePicture);
+    setCauldronName(myCauldronsRedux[0]?.name);
   }, [profileRedux]);
   return (
     <div className="flex max-h-screen h-screen justify-center items-center">
@@ -66,6 +73,16 @@ export default function ProfilePage() {
                 onChange={(event) => setProfilePicture(event.target.value)}
               />
               <q>please input your new profile picture url</q>
+            </div>
+
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="profilePicture" value="Cauldron Name" />
+              </div>
+              <TextInput
+                value={cauldronName}
+                onChange={(event) => setCauldronName(event.target.value)}
+              />
             </div>
             <div className="flex w-full justify-center gap-2">
               <div>
