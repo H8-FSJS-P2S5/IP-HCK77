@@ -1,17 +1,34 @@
 import { Button, Card, Label, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchProfile } from "../src/features/profile/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { serverInstance } from "../helpers/axiosInstance";
 
 export default function ProfilePage() {
   const [fullName, setFullName] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const profileRedux = useSelector((state) => state.profileReducer.value);
   const dispatch = useDispatch();
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    await serverInstance.put(
+      "/profile",
+      {
+        fullName,
+        profilePicture,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      }
+    );
+    navigate("/");
   };
+
   useEffect(() => {
     dispatch(fetchProfile());
   }, []);
