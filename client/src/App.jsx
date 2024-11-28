@@ -1,5 +1,9 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
 import LoginPage from "./pages/LoginPage";
@@ -27,6 +31,12 @@ const router = createBrowserRouter([
   {
     path: "/user",
     element: <UserLayout />,
+    loader: () => {
+      const access_token = localStorage.getItem("access_token");
+      if (!access_token) {
+        return redirect("/login/google");
+      }
+    },
     children: [
       {
         path: "my-cauldron",
@@ -41,6 +51,19 @@ const router = createBrowserRouter([
   {
     path: "/login/google",
     element: <LoginPage />,
+    loader: () => {
+      const access_token = localStorage.getItem("access_token");
+      if (access_token) {
+        return redirect("/");
+      }
+    },
+  },
+  {
+    path: "/logout",
+    loader: () => {
+      localStorage.clear();
+      return redirect("/");
+    },
   },
 ]);
 function App() {

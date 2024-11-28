@@ -17,6 +17,11 @@ export default function NavigationBar() {
         className="rounded-none"
       >
         <Navbar.Brand to="/">
+          <img
+            className="w-10 h-10 rounded-full self-center"
+            src={"../assets/logo.jpg"}
+            alt="logo"
+          />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             PlotAlchemy
           </span>
@@ -30,7 +35,10 @@ export default function NavigationBar() {
           <Link to="/user/my-cauldron">MyCauldron</Link>
           <Link to="/user/profile">Profile</Link>
           <Link to="/login/google">Sign In</Link>
-          <Link to="#footer">Contact</Link>
+          <a href="#footer">Contact</a>
+          <Link to="/logout" className="text-red-700 font-bold">
+            Logout
+          </Link>
         </Navbar.Collapse>
       </Navbar>
     </div>

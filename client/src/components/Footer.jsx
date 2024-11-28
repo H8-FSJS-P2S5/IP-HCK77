@@ -4,6 +4,7 @@ import { BsGithub } from "react-icons/bs";
 export default function FooterPage() {
   return (
     <Footer
+      id="footer"
       container
       className="py-3 px-6 mt-2 rounded-none"
       style={{ background: "#3E2723" }}
