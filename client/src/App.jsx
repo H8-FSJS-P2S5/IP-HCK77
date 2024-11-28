@@ -1,8 +1,13 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { store } from "./app/store";
+import { Provider } from "react-redux";
 import LoginPage from "./pages/LoginPage";
 import Layout from "./pages/Layout";
 import HomePage from "./pages/HomePage";
+import GenresPage from "./pages/GenresPage";
+import UserLayout from "./pages/UserLayout";
+import ProfilePage from "./pages/ProfilePage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -13,12 +18,22 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
+        path: "genres",
+        element: <GenresPage />,
+      },
+    ],
+  },
+  {
+    path: "/user",
+    element: <UserLayout />,
+    children: [
+      {
         path: "my-cauldron",
-        element: <LoginPage />,
+        element: <h1>My Cauldron</h1>,
       },
       {
         path: "profile",
-        element: <LoginPage />,
+        element: <ProfilePage />,
       },
     ],
   },
@@ -26,15 +41,13 @@ const router = createBrowserRouter([
     path: "/login/google",
     element: <LoginPage />,
   },
-  {
-    path: "/genres",
-    element: <LoginPage />,
-  },
 ]);
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </>
   );
 }

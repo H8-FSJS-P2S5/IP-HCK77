@@ -15,9 +15,12 @@ export default function LoginPage() {
 
         // Here is the logic to send the credential to the server
         // You can use axios or fetch to send the credential to the server
-        const { data } = await axios.post("http://localhost:3000/auth/google", {
-          googleToken: response.credential,
-        });
+        const { data } = await axios.post(
+          "https://api.fauzhanwahyudi.com/auth/google",
+          {
+            googleToken: response.credential,
+          }
+        );
         localStorage.setItem("access_token", data.access_token);
 
         // navigate to the home page or do magic stuff

@@ -3,27 +3,36 @@ import { Link } from "react-router-dom";
 
 export default function NavigationBar() {
   return (
-    <Navbar fluid rounded>
-      <Navbar.Brand to="https://flowbite-react.com">
-        <img
-          src="/favicon.svg"
-          className="mr-3 h-6 sm:h-9"
-          alt="Flowbite React Logo"
-        />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          Flowbite React
-        </span>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-      <Navbar.Collapse>
-        <Link to="#" active>
-          Home
-        </Link>
-        <Link to="#">About</Link>
-        <Link to="#">Services</Link>
-        <Link to="#">Pricing</Link>
-        <Link to="#">Contact</Link>
-      </Navbar.Collapse>
-    </Navbar>
+    <div
+      style={{
+        position: "sticky",
+        top: "0",
+        zIndex: "100",
+      }}
+    >
+      <Navbar
+        fluid
+        rounded
+        style={{ background: "#FFD700" }}
+        className="rounded-none"
+      >
+        <Navbar.Brand to="/">
+          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+            PlotAlchemy
+          </span>
+        </Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse>
+          <Link to="/" active>
+            Home
+          </Link>
+          <Link to="/genres">Genres</Link>
+          <Link to="/user/my-cauldron">MyCauldron</Link>
+          <Link to="/user/profile">Profile</Link>
+          <Link to="/login/google">Sign In</Link>
+          <Link to="#footer">Contact</Link>
+        </Navbar.Collapse>
+      </Navbar>
+    </div>
   );
 }
