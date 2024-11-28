@@ -28,9 +28,10 @@ export const fetchProfile = () => async (dispatch) => {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
       },
     });
-    delete data.createdAt;
-    delete data.updatedAt;
-    dispatch(setProfile(data));
+    let profile = data.profile;
+    delete profile.createdAt;
+    delete profile.updatedAt;
+    dispatch(setProfile(profile));
   } catch (error) {
     console.log("🚀 ~ fetchProfile ~ error:", error);
   }

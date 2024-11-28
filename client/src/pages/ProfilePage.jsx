@@ -1,21 +1,36 @@
 import { Button, Card, Label, TextInput } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { fetchProfile } from "../src/features/profile/profileSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ProfilePage() {
-  const [fullName, setFullName] = useState("EKO");
-  const [profilePicture, setProfilePicture] = useState("EKO");
+  const [fullName, setFullName] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
+  const profileRedux = useSelector((state) => state.profileReducer.value);
+  const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
   };
+  useEffect(() => {
+    dispatch(fetchProfile());
+  }, []);
+
+  useEffect(() => {
+    setFullName(profileRedux.fullName);
+    setProfilePicture(profileRedux.profilePicture);
+  }, [profileRedux]);
   return (
-    <div className="flex flex-col max-h-screen h-screen justify-center items-center">
-      <div>
-        <h1 className="font-bold underline">Your Profile</h1>
-      </div>
+    <div className="flex max-h-screen h-screen justify-center items-center">
+      <div></div>
       <div style={{ width: "50%" }} className="max-w-lg">
         <Card>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <img
+              className="w-20 h-20 rounded-full self-center"
+              src={profilePicture}
+              alt="profile picture"
+            />
             <div>
               <div className="mb-2 block">
                 <Label htmlFor="fullName" value="Full Name" />
