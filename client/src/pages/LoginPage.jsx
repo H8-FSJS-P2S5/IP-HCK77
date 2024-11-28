@@ -1,7 +1,8 @@
 "use client";
-import { Card } from "flowbite-react";
+import { Button, Card } from "flowbite-react";
 import { useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 export default function LoginPage() {
   useEffect(() => {
     // Initialize the Google Sign-In button
@@ -42,6 +43,9 @@ export default function LoginPage() {
     <div className="h-screen flex justify-center items-center">
       <Card className="max-w-sm">
         <div id="buttonDiv"></div>
+        <Link to="/">
+          <Button className="w-full">Cancel</Button>
+        </Link>
       </Card>
     </div>
   );

@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 
 export default function Layout() {
   return (
-    <div style={{ background: "#FF7300" }}>
+    <div>
       <Navbar />
       <Outlet />
       <Footer />

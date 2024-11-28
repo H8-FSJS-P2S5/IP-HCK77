@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import GenresPage from "./pages/GenresPage";
 import UserLayout from "./pages/UserLayout";
 import ProfilePage from "./pages/ProfilePage";
+import MyCauldronPage from "./pages/MyCauldronPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "my-cauldron",
-        element: <h1>My Cauldron</h1>,
+        element: <MyCauldronPage />,
       },
       {
         path: "profile",
