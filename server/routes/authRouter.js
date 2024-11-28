@@ -5,6 +5,7 @@ const { guardCauldron } = require("../middleware/authorization");
 
 const router = require("express").Router();
 router.post("/cauldrons/:cauldronId/potions", PotionController.createPotion);
+router.get("/profile/", ProfileController.profile);
 router.put("/profile/", ProfileController.updateProfile);
 router.get("/cauldrons", CauldronController.showCauldrons);
 router.put(
