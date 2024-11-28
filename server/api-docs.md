@@ -175,7 +175,31 @@ _Response (404 - Error not Found)_
 }
 ```
 
-## 6. PUT /profile/
+## 6. GET /profile/
+
+Description:
+
+- get user profile
+
+Request:
+
+- headers:
+
+```json
+{
+  "Authorization": "Bearer <access_token>"
+}
+```
+
+_Response (200 - Success)_
+
+```json
+{
+  "profile": "object"
+}
+```
+
+## 7. PUT /profile/
 
 Description:
 
@@ -208,7 +232,7 @@ _Response (200 - Success)_
 }
 ```
 
-## 7. GET /cauldrons
+## 8. GET /cauldrons
 
 Description:
 
@@ -232,7 +256,7 @@ _Response (200 - Success)_
 }
 ```
 
-## 8. PUT /cauldrons/:cauldronId
+## 9. PUT /cauldrons/:cauldronId
 
 Description:
 
@@ -280,7 +304,7 @@ _Response (404 - Error not Found)_
 }
 ```
 
-## 9. PUT /cauldrons/:cauldronId/potions/:potionId
+## 10. PUT /cauldrons/:cauldronId/potions/:potionId
 
 Description:
 
@@ -334,7 +358,7 @@ _Response (404 - Error not Found)_
 }
 ```
 
-## 10. DELETE /cauldrons/:cauldronId/potions/:potionId
+## 11. DELETE /cauldrons/:cauldronId/potions/:potionId
 
 Description:
 
@@ -379,7 +403,7 @@ _Response (404 - Error not Found)_
 }
 ```
 
-## 11. POST /recommendation
+## 12. POST /recommendation
 
 Description:
 
