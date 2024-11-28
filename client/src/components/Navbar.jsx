@@ -16,16 +16,18 @@ export default function NavigationBar() {
         style={{ background: "#FFD700" }}
         className="rounded-none"
       >
-        <Navbar.Brand to="/">
-          <img
-            className="w-10 h-10 rounded-full self-center"
-            src={"../assets/logo.jpg"}
-            alt="logo"
-          />
-          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-            PlotAlchemy
-          </span>
-        </Navbar.Brand>
+        <Link to={"/"}>
+          <Navbar.Brand>
+            <img
+              className="w-10 h-10 rounded-full self-center"
+              src={"logo.jpg"}
+              alt="logo"
+            />
+            <span className="self-center whitespace-nowrap text-xl font-semibold mx-1 dark:text-white">
+              PlotAlchemy
+            </span>
+          </Navbar.Brand>
+        </Link>
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Link to="/" active>
@@ -34,11 +36,14 @@ export default function NavigationBar() {
           <Link to="/genres">Genres</Link>
           <Link to="/user/my-cauldron">MyCauldron</Link>
           <Link to="/user/profile">Profile</Link>
-          <Link to="/login/google">Sign In</Link>
           <a href="#footer">Contact</a>
-          <Link to="/logout" className="text-red-700 font-bold">
-            Logout
-          </Link>
+          {localStorage.getItem("access_token") ? (
+            <Link to="/logout" className="text-red-700 font-bold">
+              Logout
+            </Link>
+          ) : (
+            <Link to="/login/google" className="text-yellow-500">Sign In</Link>
+          )}
         </Navbar.Collapse>
       </Navbar>
     </div>

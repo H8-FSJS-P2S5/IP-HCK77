@@ -62,7 +62,7 @@ const router = createBrowserRouter([
     path: "/logout",
     loader: () => {
       localStorage.clear();
-      return redirect("/");
+      return redirect("/login/google");
     },
   },
 ]);
