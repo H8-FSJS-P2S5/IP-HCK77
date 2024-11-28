@@ -12,12 +12,13 @@ export default function GenresPage() {
     dispatch(fetchGenres());
   }, []);
   return (
-    <div className="container flex justify-center items-center">
+    <div className="container flex justify-center items-center mt-3">
       <Card>
         <Table hoverable>
           <Table.Head className="text-center">
             <Table.HeadCell>Genres</Table.HeadCell>
             <Table.HeadCell>MyAnimeList Link</Table.HeadCell>
+            <Table.HeadCell>Potion</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
             {genresRedux.map((genre, index) => (

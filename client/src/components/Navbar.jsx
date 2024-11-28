@@ -7,7 +7,7 @@ export default function NavigationBar() {
       style={{
         position: "sticky",
         top: "0",
-        zIndex: "100",
+        zIndex: "1",
       }}
     >
       <Navbar
