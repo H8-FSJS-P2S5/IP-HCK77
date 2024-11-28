@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Cauldron.belongsTo(models.User);
+      Cauldron.hasOne(models.Potion);
     }
   }
   Cauldron.init(

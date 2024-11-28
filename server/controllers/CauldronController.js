@@ -1,10 +1,13 @@
-const { Cauldron } = require("../models");
+const { Cauldron, Potion } = require("../models");
 
 class CauldronController {
   static async showCauldrons(req, res, next) {
     try {
       let cauldrons = await Cauldron.findAll({
         where: { UserId: req.user.id },
+        include: {
+          model: Potion,
+        },
       });
       res.status(200).json({
         cauldrons,
