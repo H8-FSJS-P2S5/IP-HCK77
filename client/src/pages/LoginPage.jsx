@@ -2,8 +2,10 @@
 import { Button, Card } from "flowbite-react";
 import { useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function LoginPage() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     // Initialize the Google Sign-In button
     window.google.accounts.id.initialize({
@@ -25,6 +27,7 @@ export default function LoginPage() {
         localStorage.setItem("access_token", data.access_token);
 
         // navigate to the home page or do magic stuff
+        navigate("/");
       },
     });
 
