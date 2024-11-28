@@ -71,7 +71,7 @@ class UserController {
   }
   static async loginGoogle(req, res, next) {
     try {
-      console.log("google.auth")
+      // console.log("google.auth");
       const client = new OAuth2Client();
       const { googleToken } = req.body;
       const ticket = await client.verifyIdToken({
@@ -89,12 +89,19 @@ class UserController {
         },
         hooks: false,
       });
-      await Profile.create({
-        name: payload.name,
-        profilePicture: payload.picture,
-        UserId: user.id,
+      console.log(user);
+      await Profile.findOrCreate({
+        where: { UserId: user.id },
+        default: {
+          name: payload.name,
+          profilePicture: payload.picture,
+          UserId: user.id,
+        },
       });
-      await Cauldron.create({ UserId: user.id });
+      await Cauldron.findOrCreate({
+        where: { UserId: user.id },
+        default: { UserId: user.id },
+      });
       const access_token = generateToken(user.id);
 
       res.status(created ? 201 : 200).json({
