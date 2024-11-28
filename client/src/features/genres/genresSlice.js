@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { serverInstance } from "../../helpers/axiosInstance";
+import Swal from "sweetalert2";
 
 const initialState = {
   value: [],
@@ -32,5 +33,10 @@ export const fetchGenres = () => async (dispatch) => {
     dispatch(setGenres(genres));
   } catch (error) {
     console.log("🚀 ~ fetchGenres ~ error:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.response.data.message,
+    });
   }
 };

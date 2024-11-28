@@ -1,13 +1,22 @@
 "use client";
 import { useEffect } from "react";
-
+import { getRecommendation } from "../features/recom/recomSlice";
 import { Card, Table } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchGenres } from "../features/genres/genresSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { setGenreId } from "../features/genreId/genreIdSlice";
+import { setOpenModal } from "../features/openModal/openModal";
 export default function GenresPage() {
   const genresRedux = useSelector((state) => state.genresReducer.value);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const getRecomOnClick = (genre) => {
+    dispatch(setOpenModal(true));
+    dispatch(getRecommendation("", genre));
+    navigate("/");
+  };
   useEffect(() => {
     dispatch(fetchGenres());
   }, []);
@@ -33,12 +42,16 @@ export default function GenresPage() {
                   <Link href={genre.url}>Go to MyAnimeList</Link>
                 </Table.Cell>
                 <Table.Cell>
-                  <Link
-                    to={`/?${genre.name}`}
+                  <button
+                    // to={`/?genre=${genre.name}`}
+                    onClick={() => {
+                      dispatch(setGenreId(genre.id));
+                      getRecomOnClick(genre.name);
+                    }}
                     className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                   >
                     Request Potion
-                  </Link>
+                  </button>
                 </Table.Cell>
               </Table.Row>
             ))}

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { serverInstance } from "../../helpers/axiosInstance";
 import Swal from "sweetalert2";
+import { setLoading } from "../loading/loadingSlice";
 const initialState = {
   value: {},
 };
@@ -23,11 +24,13 @@ export default recommendationSlice.reducer;
 
 export const getRecommendation = (synopsis, genre) => async (dispatch) => {
   try {
+    dispatch(setLoading(true));
     let { data } = await serverInstance.post("/recommendation", {
       synopsis,
       genre,
     });
     dispatch(setRecommendation(data));
+    dispatch(setLoading(false));
   } catch (error) {
     console.log("ini error KKKKKKKKKKKKKKKKKK");
     console.log("🚀 ~ getRecommendation ~ error:", error);

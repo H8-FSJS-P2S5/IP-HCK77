@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { serverInstance } from "../../helpers/axiosInstance";
+import Swal from "sweetalert2";
 const initialState = {
   value: {},
 };
@@ -33,5 +34,10 @@ export const fetchProfile = () => async (dispatch) => {
     dispatch(setProfile(profile));
   } catch (error) {
     console.log("🚀 ~ fetchProfile ~ error:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.response.data.message,
+    });
   }
 };

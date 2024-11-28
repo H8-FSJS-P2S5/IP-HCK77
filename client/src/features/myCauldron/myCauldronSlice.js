@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { serverInstance } from "../../helpers/axiosInstance";
+import Swal from "sweetalert2";
 
 const initialState = {
   value: [],
@@ -36,5 +37,10 @@ export const fetchMyCauldron = () => async (dispatch) => {
     dispatch(setMyCauldron(cauldrons));
   } catch (error) {
     console.log("🚀 ~ fetchMyCauldron ~ error:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.response.data.message,
+    });
   }
 };

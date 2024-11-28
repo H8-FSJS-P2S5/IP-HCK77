@@ -10,7 +10,6 @@ import LoginPage from "./pages/LoginPage";
 import Layout from "./pages/Layout";
 import HomePage from "./pages/HomePage";
 import GenresPage from "./pages/GenresPage";
-import UserLayout from "./pages/UserLayout";
 import ProfilePage from "./pages/ProfilePage";
 import MyCauldronPage from "./pages/MyCauldronPage";
 const router = createBrowserRouter([
@@ -30,7 +29,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/user",
-    element: <UserLayout />,
+    element: <Layout />,
     loader: () => {
       const access_token = localStorage.getItem("access_token");
       if (!access_token) {
