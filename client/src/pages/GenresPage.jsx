@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { Card, Table } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { fetchGenres } from "../src/features/genres/genresSlice";
+import { fetchGenres } from "../features/genres/genresSlice";
 import { useDispatch, useSelector } from "react-redux";
 export default function GenresPage() {
   const genresRedux = useSelector((state) => state.genresReducer.value);

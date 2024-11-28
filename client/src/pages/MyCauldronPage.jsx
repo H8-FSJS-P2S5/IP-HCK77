@@ -1,7 +1,7 @@
 import { Card } from "flowbite-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMyCauldron } from "../src/features/myCauldron/myCauldronSlice";
+import { fetchMyCauldron } from "../features/myCauldron/myCauldronSlice";
 
 export default function MyCauldronPage() {
   const myCauldronsRedux = useSelector(

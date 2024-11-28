@@ -1,7 +1,7 @@
 import { Button, Card, Label, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchProfile } from "../src/features/profile/profileSlice";
+import { fetchProfile } from "../features/profile/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { serverInstance } from "../helpers/axiosInstance";
 

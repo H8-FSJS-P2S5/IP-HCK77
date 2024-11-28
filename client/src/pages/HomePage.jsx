@@ -6,7 +6,6 @@ export default function HomePage() {
   };
   return (
     <div className="flex flex-col max-h-screen h-screen justify-center items-center">
-      <h1 className="font-bold underline">Hello world!</h1>
       <Card>
         <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4">
           <div>
