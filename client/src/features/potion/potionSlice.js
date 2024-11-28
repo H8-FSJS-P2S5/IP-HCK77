@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { serverInstance } from "../../helpers/axiosInstance";
 import Swal from "sweetalert2";
+import { fetchMyCauldron } from "../myCauldron/myCauldronSlice";
 const initialState = {
   value: {},
 };
@@ -21,29 +22,74 @@ export const { setPotion } = potionSlice.actions;
 
 export default potionSlice.reducer;
 
-export const postPotion =
-  (recommendation, GenreId, cauldronId) => async (dispatch) => {
-    try {
-      let { data } = await serverInstance.post(
-        `/cauldrons/${cauldronId}/potions`,
-        {
-          recommendation,
-          GenreId,
+export const postPotion = (recommendation, GenreId, cauldronId) => async () => {
+  try {
+    let { data } = await serverInstance.post(
+      `/cauldrons/${cauldronId}/potions`,
+      {
+        recommendation,
+        GenreId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      );
-      console.log(data);
-      // dispatch(setPotion(cauldrons));
-    } catch (error) {
-      console.log("🚀 ~ postPotion ~ error:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: error.response.data.message,
-      });
-    }
-  };
+      }
+    );
+    console.log(data);
+  } catch (error) {
+    console.log("🚀 ~ postPotion ~ error:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.response.data.message,
+    });
+  }
+};
+
+export const updatePotion = (potion) => async (dispatch) => {
+  try {
+    const { id, GenreId, recommendation, CauldronId } = potion;
+    let { data } = await serverInstance.put(
+      `/cauldrons/${CauldronId}/potions/${id}`,
+      {
+        recommendation,
+        GenreId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      }
+    );
+    console.log("🚀 ~ updatePotion ~ data:", data);
+    dispatch(fetchMyCauldron());
+  } catch (error) {
+    console.log("🚀 ~ postPotion ~ error:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.response.data.message,
+    });
+  }
+};
+
+export const deletePotion = async (potionId) => {
+  try {
+    await serverInstance.delete(
+      `/cauldrons/${cauldronId}/potions/${potionId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.log("🚀 ~ deletePotion ~ error:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.response.data.message,
+    });
+  }
+};

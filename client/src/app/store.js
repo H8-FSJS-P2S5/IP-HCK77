@@ -6,6 +6,7 @@ import recommendationReducer from "../features/recom/recomSlice";
 import loadingReducer from "../features/loading/loadingSlice";
 import genreIdReducer from "../features/genreId/genreIdSlice";
 import openModalReducer from "../features/openModal/openModal";
+import potionReducer from "../features/potion/potionSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     loadingReducer,
     genreIdReducer,
     openModalReducer,
+    potionReducer,
   },
 });
