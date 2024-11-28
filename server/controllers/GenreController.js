@@ -34,6 +34,9 @@ class GenreController {
         // genre.recommendation = result;
         return genre;
       });
+=======
+      let genres = await Genre.findAll();
+>>>>>>> 40cde29afc98bbf535fe51e5a6cb55f2ef08736b
       res.status(200).json({
         genres,
       });
