@@ -25,13 +25,14 @@ class GenreController {
           Maintain a balance of ${genre.name} and character development.
           Please format your response as a single paragraph synopsis.
       `;
-        let result = null;
-        (async () => {
-          result = await geminiPrompt(prompt);
-        })();
-        console.log(result);
-        result = JSON.parse(result.response.text());
-        genre.recommendation = result;
+        console.log(getTopMangaByGenre(genre.name));
+        // let result = null;
+        // (async () => {
+        //   result = await geminiPrompt(prompt);
+        // })();
+        // console.log(result);
+        // result = JSON.parse(result.response.text());
+        // genre.recommendation = result;
         return genre;
       });
       res.status(200).json({
