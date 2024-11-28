@@ -10,11 +10,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Cauldron.belongsTo(models.User);
+      Cauldron.hasOne(models.Potion);
     }
   }
   Cauldron.init(
     {
-      name: { type: DataTypes.STRING, defaultValue: "" },
+      name: { type: DataTypes.STRING, defaultValue: "New Cauldron" },
       UserId: DataTypes.INTEGER,
     },
     {

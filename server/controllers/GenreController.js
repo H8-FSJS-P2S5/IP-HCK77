@@ -1,10 +1,9 @@
-const geminiPrompt = require("../helpers/geminiPrompt");
-const getTopMangaByGenre = require("../helpers/getTopMangaByGenre");
 const { Genre } = require("../models");
 
 class GenreController {
   static async showGenres(req, res, next) {
     try {
+<<<<<<< HEAD
       let genres = await Genre.findAll({ limit: 5 });
       genres = genres.map((genre) => {
         const prompt = `

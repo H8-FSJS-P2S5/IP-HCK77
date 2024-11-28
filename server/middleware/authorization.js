@@ -1,42 +1,22 @@
-const { Product } = require("../models");
+const { Cauldron } = require("../models");
 
-const isAdmin = async (req, res, next) => {
+const guardCauldron = async (req, res, next) => {
   try {
+    const cauldronId = req.params.cauldronId;
     const user = req.user;
-    if (user.role.toLowerCase() != "admin") {
-      next({ name: "Forbidden", message: "You have no access" });
-      return;
-    }
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
-
-const isStaff = async (req, res, next) => {
-  try {
-    const productId = req.params.id;
-    const user = req.user;    
-
-    //if admin, can directly go
-    if (user.role.toLowerCase() === "admin") {
-      next();
-      return;
-    }
-
     //search product
-    const product = await Product.findByPk(productId);
+    const cauldron = await Cauldron.findByPk(cauldronId);
 
     //check product availability
-    if (!product) {
+    if (!cauldron) {
       next({
         name: "Not Found",
-        message: `Error product with ID: ${productId} not found`,
+        message: `Cauldron not found`,
       });
       return;
     }
     //check if product associate with user
-    if (product.authorId != user.id) {
+    if (cauldron.UserId != user.id) {
       next({
         name: "Forbidden",
         message: `You have no access`,
@@ -51,4 +31,4 @@ const isStaff = async (req, res, next) => {
   }
 };
 
-module.exports = { isAdmin, isStaff };
+module.exports = { guardCauldron };

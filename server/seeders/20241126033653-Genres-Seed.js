@@ -15,6 +15,29 @@ module.exports = {
       return el;
     });
     await queryInterface.bulkInsert("Genres", genres);
+
+    let cauldrons = [
+      {
+        name: "Dragon Cauldron",
+        UserId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ];
+
+    let profiles = [
+      {
+        fullName: "admin",
+        profilePicture:
+          "https://images.pexels.com/photos/6129297/pexels-photo-6129297.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
+        UserId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ];
+
+    await queryInterface.bulkInsert("Profiles", profiles);
+    await queryInterface.bulkInsert("Cauldrons", cauldrons);
   },
 
   async down(queryInterface, Sequelize) {

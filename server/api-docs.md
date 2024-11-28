@@ -5,21 +5,22 @@
 List of available endpoints:
 
 - `POST /register`
-- `POST /login/google`
+- `POST /auth/google`
 - `POST /login`
 - `GET /genres`
+- `POST /recommendation`
 
 Routes below need authentication:
 
 - `POST /cauldrons/:cauldronId/potions`
+- `GET /cauldrons`
+- `PUT /profile`
 
 Routes below need authorization:
 
 > the request user must be owner of the product
 
-- `PUT /profile/:userId`
-- `PATCH /profile/:userId/profilePicture`
-- `GET /cauldrons`
+- `PUT /cauldrons/:cauldronId`
 - `PUT /cauldrons/:cauldronId/potions/:potionId`
 - `DELETE /cauldrons/:cauldronId/potions/:potionId`
 
@@ -49,7 +50,7 @@ _Response (201 - Created)_
 }
 ```
 
-## 2. POST /login/google
+## 2. POST /auth/google
 
 Description:
 
@@ -61,7 +62,7 @@ Request:
 
 ```json
 {
-  "access_token_google": "string (required)"
+  "googleToken": "string (required)"
 }
 ```
 
@@ -110,7 +111,7 @@ _Response (401 - Unauthorized)_
 
 Description:
 
-- show list of recommendation according to genres
+- show list of manga genres
 
 Request:
 
@@ -174,21 +175,37 @@ _Response (404 - Error not Found)_
 }
 ```
 
-## 6. PUT /profile/:userId
+## 6. GET /profile/
+
+Description:
+
+- get user profile
+
+Request:
+
+- headers:
+
+```json
+{
+  "Authorization": "Bearer <access_token>"
+}
+```
+
+_Response (200 - Success)_
+
+```json
+{
+  "profile": "object"
+}
+```
+
+## 7. PUT /profile/
 
 Description:
 
 - update user profile
 
 Request:
-
-- params:
-
-```json
-{
-  "userId": "number (required)"
-}
-```
 
 - headers:
 
@@ -215,79 +232,6 @@ _Response (200 - Success)_
 }
 ```
 
-_Response (403 - Forbidden)_
-
-```json
-{
-  "message": "You are not authorized"
-}
-```
-
-_Response (404 - Error not Found)_
-
-```json
-{
-  "message": "Profile Not Found"
-}
-```
-
-## 7. PATCH /profile/:userId/profilePicture
-
-Description:
-
-- upload and update profile picture
-
-Request:
-
-- params:
-
-```json
-{
-  "id": "number (required)"
-}
-```
-
-- headers:
-
-```json
-{
-  "Authorization": "Bearer <access_token>",
-  "Content-Type": "multipart/form-data"
-}
-```
-
-- body:
-
-```json
-{
-  "image": "file"
-}
-```
-
-_Response (200 - Success)_
-
-```json
-{
-  "message": "Successfully Update Profile Picture"
-}
-```
-
-_Response (403 - Forbidden)_
-
-```json
-{
-  "message": "You are not authorized"
-}
-```
-
-_Response (404 - Error not Found)_
-
-```json
-{
-  "message": "Profile Not Found"
-}
-```
-
 ## 8. GET /cauldrons
 
 Description:
@@ -308,11 +252,59 @@ _Response (200 - Success)_
 
 ```json
 {
-  "cauldron": "array <cauldron>"
+  "cauldrons": "array <cauldron>"
 }
 ```
 
-## 9. PUT /cauldrons/:cauldronId/potions/:potionId
+## 9. PUT /cauldrons/:cauldronId
+
+Description:
+
+- update user cauldron name
+
+Request:
+
+- params:
+
+```json
+{
+  "cauldronId": "number (required)"
+}
+```
+
+- headers:
+
+```json
+{
+  "Authorization": "Bearer <access_token>"
+}
+```
+
+- body:
+
+```json
+{
+  "name": "string"
+}
+```
+
+_Response (200 - Success)_
+
+```json
+{
+  "message": "Successfully update cauldron"
+}
+```
+
+_Response (404 - Error not Found)_
+
+```json
+{
+  "message": "Cauldron not found"
+}
+```
+
+## 10. PUT /cauldrons/:cauldronId/potions/:potionId
 
 Description:
 
@@ -360,9 +352,13 @@ _Response (404 - Error not Found)_
 {
   "message": "Error potion with ID: <id> not found"
 }
+- OR
+{
+  "message": "Cauldron not found"
+}
 ```
 
-## 10. DELETE /cauldrons/:cauldronId/potions/:potionId
+## 11. DELETE /cauldrons/:cauldronId/potions/:potionId
 
 Description:
 
@@ -395,6 +391,43 @@ _Response (200 - Success)_
 }
 ```
 
+_Response (404 - Error not Found)_
+
+```json
+{
+  "message": "Error potion with ID: <id> not found"
+}
+- OR
+{
+  "message": "Cauldron not found"
+}
+```
+
+## 12. POST /recommendation
+
+Description:
+
+- generate recommendation using Gemini AI
+
+Request:
+
+- body:
+
+```json
+{
+  "synopsis": "string",
+  "genre": "string (required)"
+}
+```
+
+_Response (201 - Success)_
+
+```json
+{
+  "recommendation": "string"
+}
+```
+
 ## Global Error Response
 
 _Response (400 - Bad Request)_
@@ -410,6 +443,14 @@ _Response (401 - Unauthorized)_
 ```json
 {
   "message": "Invalid token"
+}
+```
+
+_Response (403 - Forbidden)_
+
+```json
+{
+  "message": "You have no access"
 }
 ```
 

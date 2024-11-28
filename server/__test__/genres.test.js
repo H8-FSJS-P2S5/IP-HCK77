@@ -68,9 +68,7 @@ describe("Genres", () => {
     console.log(response.data);
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Object);
-    expect(response.body[0]).toHaveProperty(
-      "recommendation",
-      expect.any(String)
-    );
+    expect(response.body.genres).toBeInstanceOf(Object);
+    expect(response.body.genres[0]).toHaveProperty("name", expect.any(String));
   });
 });

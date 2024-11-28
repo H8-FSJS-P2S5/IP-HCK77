@@ -1,23 +1,54 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Button } from "flowbite-react";
+import { store } from "./app/store";
+import { Provider } from "react-redux";
+import LoginPage from "./pages/LoginPage";
+import Layout from "./pages/Layout";
+import HomePage from "./pages/HomePage";
+import GenresPage from "./pages/GenresPage";
+import UserLayout from "./pages/UserLayout";
+import ProfilePage from "./pages/ProfilePage";
+import MyCauldronPage from "./pages/MyCauldronPage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <div>
-        <h1 className="font-bold underline text-center">Hello world!</h1>
-        <div className="flex justify-center mt-2">
-          <Button>Click me</Button>
-        </div>
-      </div>
-    ),
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <HomePage />,
+      },
+      {
+        path: "genres",
+        element: <GenresPage />,
+      },
+    ],
+  },
+  {
+    path: "/user",
+    element: <UserLayout />,
+    children: [
+      {
+        path: "my-cauldron",
+        element: <MyCauldronPage />,
+      },
+      {
+        path: "profile",
+        element: <ProfilePage />,
+      },
+    ],
+  },
+  {
+    path: "/login/google",
+    element: <LoginPage />,
   },
 ]);
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </>
   );
 }
