@@ -2,7 +2,7 @@ const geminiPrompt = require("./geminiConfig");
 const getTopMangaByGenre = require("./getTopMangaByGenre");
 
 const generateRecommendation = async (synopsis, genre) => {
-  const mangaByGenre = await getTopMangaByGenre(genre.name);
+  const mangaByGenre = await getTopMangaByGenre(genre);
   const prompt = `
       Analyze
       ${
