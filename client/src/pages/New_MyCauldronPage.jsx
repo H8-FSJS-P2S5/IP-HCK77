@@ -12,6 +12,8 @@ import { FaRegEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function MyCauldronPage() {
+  const profileRedux = useSelector((state) => state.profileReducer.value);
+
   const openModalRedux = useSelector((state) => state.openModalReducer.value);
   const potionRedux = useSelector((state) => state.potionReducer.value);
   const myCauldronsRedux = useSelector(
@@ -43,13 +45,24 @@ export default function MyCauldronPage() {
       >
         {myCauldronsRedux.length > 0 ? (
           <>
-            <div style={{ display: "sticky", top: "0", overflow: "auto" }}>
-              <h1 className="text-center font-bold text-yellow-500">
+            <div className="flex w-full justify-center items-center gap-2">
+              <img
+                src={profileRedux.profilePicture}
+                width={"100px"}
+                height={"100px"}
+                style={{
+                  borderStartEndRadius: "9999px",
+                  borderStartStartRadius: "9999px",
+                }}
+                alt=""
+                className="p-0 m-0 self"
+              />
+              <h1 className="text-center font-bold text-yellow-500 text-2xl">
                 {myCauldronsRedux[0].name}{" "}
-                <Link to="/user/profile">
-                  <FaRegEdit className="inline cursor-pointer" />
-                </Link>
               </h1>
+              <Link to="/user/profile">
+                <FaRegEdit className="inline cursor-pointer text-yellow-500 text-2xl" />
+              </Link>
             </div>
             {potions && potions.length > 0 ? (
               potions.map((potion) => (
