@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
-import LoginPage from "./pages/LoginPage";
 import Layout from "./pages/Layout";
+// import LoginPage from "./pages/LoginPage";
 // import HomePage from "./pages/HomePage";
 // import GenresPage from "./pages/GenresPage";
 // import ProfilePage from "./pages/ProfilePage";
@@ -16,6 +16,7 @@ import HomePage from "./pages/New_HomePage";
 import GenresPage from "./pages/New_GenresPage";
 import MyCauldronPage from "./pages/New_MyCauldronPage";
 import ProfilePage from "./pages/New_Profile_Page";
+import LoginPage from "./pages/New_LoginPage";
 const router = createBrowserRouter([
   {
     path: "/",

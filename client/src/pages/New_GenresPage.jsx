@@ -82,7 +82,7 @@ export default function GenresPage() {
           </Table>
         ) : (
           <div className="flex flex-col justify-center items-center">
-            <Spinner size="xl" color="yellow" />
+            <Spinner size="xl" color="warning" />
             <h1 className="text-yellow-500">Loading your genres...</h1>
           </div>
         )}

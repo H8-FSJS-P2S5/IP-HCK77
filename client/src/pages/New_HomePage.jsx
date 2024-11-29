@@ -37,6 +37,7 @@ export default function HomePage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      dispatch(setOpenModal(true));
       if (synopsis === "Create your initial synopsis...") setSynopsis("");
       dispatch(getRecommendation(synopsis, genre));
     } catch (error) {
@@ -162,7 +163,7 @@ export default function HomePage() {
             <p>{recommendation.recommendation}</p>
           ) : (
             <div className="flex flex-col justify-center items-center gap-3">
-              <Spinner size="xl" color="yellow" />
+              <Spinner size="xl" color="warning" />
               <h1 className="text-yellow-500">
                 Please wait, concoction in progress...
               </h1>

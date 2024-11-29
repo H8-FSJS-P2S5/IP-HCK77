@@ -94,7 +94,7 @@ export default function MyCauldronPage() {
           </>
         ) : (
           <div className="flex flex-col justify-center items-center">
-            <Spinner size="xl" color="yellow" />
+            <Spinner size="xl" color="warning" />
             <h1 className="text-yellow-500">Loading your cauldron...</h1>
           </div>
         )}
