@@ -3,6 +3,10 @@ const { comparePassword } = require("../helpers/hashPassword");
 const { generateToken } = require("../helpers/token");
 const { User, Profile, Cauldron } = require("../models");
 const { OAuth2Client } = require("google-auth-library");
+const {
+  mailOptions,
+  sendVerification,
+} = require("../helpers/emailVerification");
 
 class UserController {
   static async register(req, res, next) {
@@ -86,10 +90,17 @@ class UserController {
         defaults: {
           email: payload.email,
           password: String(Math.random() * 100),
-          isVerified: payload.email_verified,
+          isVerified: false,
         },
         hooks: false,
       });
+
+      if (created) {
+        console.log("send mail");
+        //send verification email
+        let emailVerification = mailOptions(email);
+        sendVerification(emailVerification);
+      }
       let profile = await Profile.findOne({
         where: { UserId: user.id },
       });
@@ -121,6 +132,19 @@ class UserController {
     } catch (error) {
       console.log("🚀 ~ UserController ~ loginGoogle ~ error:", error);
       next(error);
+    }
+  }
+  static async verify(req, res) {
+    try {
+      const { email } = req.params;
+      let user = await User.findOne({ where: { email } });
+      user.update({ isVerified: true });
+      res.status(200).json({
+        message: "Email verification success ",
+      });
+    } catch (error) {
+      console.log(error);
+      res.send(error);
     }
   }
 }

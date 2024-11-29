@@ -8,5 +8,7 @@ router.post("/login", UserController.login);
 router.post("/auth/google", UserController.loginGoogle);
 router.get("/genres", GenreController.showGenres);
 router.post("/recommendation", RecommendationController.getRecommendation);
+//verification email
+router.get("/verify/:email", UserController.verify);
 
 module.exports = router;
