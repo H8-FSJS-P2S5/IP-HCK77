@@ -2,11 +2,20 @@
 import { Button, Card } from "flowbite-react";
 import { useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 export default function LoginPage() {
   const navigate = useNavigate();
-
-  useEffect(() => {
+  const [searchParams] = useSearchParams();
+  const loginGitHub = () => {
+    window.location.assign(
+      "https://github.com/login/oauth/authorize?client_id=" +
+        import.meta.env.VITE_GITHUB_Client_ID
+    );
+  };
+  const getGitHubCode = () => {
+    console.log(searchParams.get("code"), "CODE PARAMS");
+  };
+  const loginGoogle = () => {
     // Initialize the Google Sign-In button
     window.google.accounts.id.initialize({
       // to load the env in Vite project
@@ -40,12 +49,19 @@ export default function LoginPage() {
     );
     // Display the One Tap dialog; comment out to remove the dialog
     window.google.accounts.id.prompt();
+  };
+  useEffect(() => {
+    loginGoogle();
+    getGitHubCode();
   }, []);
 
   return (
     <div className="h-screen flex justify-center items-center">
       <Card className="max-w-sm">
         <div id="buttonDiv"></div>
+        <div>
+          <button onClick={loginGitHub}>Login with Github</button>
+        </div>
         <Link to="/">
           <Button className="w-full">Cancel</Button>
         </Link>

@@ -1,13 +1,13 @@
 import { Button, Card, Modal, Spinner, Textarea } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMyCauldron } from "../features/myCauldron/myCauldronSlice";
-import { setOpenModal } from "../features/openModal/openModal";
+import { fetchMyCauldron } from "../../features/myCauldron/myCauldronSlice";
+import { setOpenModal } from "../../features/openModal/openModal";
 import {
   deletePotion,
   setPotion,
   updatePotion,
-} from "../features/potion/potionSlice";
+} from "../../features/potion/potionSlice";
 import { FaRegEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
 

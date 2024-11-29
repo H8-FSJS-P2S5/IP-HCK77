@@ -7,6 +7,7 @@ import { fetchGenres } from "../features/genres/genresSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setGenreId } from "../features/genreId/genreIdSlice";
 import { setOpenModal } from "../features/openModal/openModal";
+
 export default function GenresPage() {
   const genresRedux = useSelector((state) => state.genresReducer.value);
   const dispatch = useDispatch();
@@ -17,15 +18,20 @@ export default function GenresPage() {
     dispatch(getRecommendation("", genre));
     navigate("/");
   };
+
   useEffect(() => {
     dispatch(fetchGenres());
-  }, []);
+  }, [dispatch]);
+
   return (
-    <div className="container flex justify-center items-center mt-3">
-      <Card>
+    <div className="flex justify-center h-screen items-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
+      <Card
+        className="w-full max-w-4xl p-6 shadow-lg border border-gray-600 overflow-auto"
+        style={{ background: "#383838", color: "#EDEDED", maxHeight: "80vh" }}
+      >
         {genresRedux && genresRedux.length > 0 ? (
-          <Table hoverable>
-            <Table.Head className="text-center">
+          <Table hoverable className="text-center">
+            <Table.Head>
               <Table.HeadCell>Genres</Table.HeadCell>
               <Table.HeadCell>MyAnimeList Link</Table.HeadCell>
               <Table.HeadCell>Potion</Table.HeadCell>
@@ -34,22 +40,38 @@ export default function GenresPage() {
               {genresRedux.map((genre, index) => (
                 <Table.Row
                   key={index + 1}
-                  className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                  className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-gray-700"
                 >
                   <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                     {genre.name}
                   </Table.Cell>
                   <Table.Cell>
-                    <Link href={genre.url}>Go to MyAnimeList</Link>
+                    <Link
+                      to={genre.url}
+                      className="text-yellow-500 hover:underline"
+                    >
+                      Go to MyAnimeList
+                    </Link>
                   </Table.Cell>
                   <Table.Cell>
                     <button
-                      // to={`/?genre=${genre.name}`}
                       onClick={() => {
                         dispatch(setGenreId(genre.id));
                         getRecomOnClick(genre.name);
                       }}
-                      className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                      style={{
+                        color: "#FB8C00",
+                        padding: "0.75rem 2rem",
+                        fontWeight: "600",
+                      }}
+                      onMouseOver={(e) => {
+                        e.target.style.backgroundColor = "#FB8C00";
+                        e.target.style.color = "#ffff";
+                      }}
+                      onMouseOut={(e) => {
+                        e.target.style.backgroundColor = "#ffff";
+                        e.target.style.color = "#FB8C00";
+                      }}
                     >
                       Request Potion
                     </button>
@@ -60,8 +82,8 @@ export default function GenresPage() {
           </Table>
         ) : (
           <div className="flex flex-col justify-center items-center">
-            <Spinner size="xl" />
-            <h1>Loading your cauldron...</h1>
+            <Spinner size="xl" color="yellow" />
+            <h1 className="text-yellow-500">Loading your genres...</h1>
           </div>
         )}
       </Card>
