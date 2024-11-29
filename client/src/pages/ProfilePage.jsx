@@ -31,7 +31,18 @@ export default function ProfilePage() {
         },
       }
     );
-    navigate("/");
+    await serverInstance.put(
+      `/cauldrons/${myCauldronsRedux[0]?.id}`,
+      {
+        name: cauldronName,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      }
+    );
+    navigate("/user/my-cauldron");
   };
 
   useEffect(() => {
