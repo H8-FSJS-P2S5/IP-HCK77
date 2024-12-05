@@ -38,13 +38,18 @@ export const postPotion =
         }
       );
       console.log(data);
+      Swal.fire({
+        icon: "success",
+        title: "Your potion is saved",
+        timer: 2000,
+      });
       dispatch(fetchMyCauldron());
     } catch (error) {
       console.log("🚀 ~ postPotion ~ error:", error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: error.response.data.message,
+        text: error?.response?.data?.message,
       });
     }
   };
@@ -65,13 +70,18 @@ export const updatePotion = (potion) => async (dispatch) => {
       }
     );
     console.log("🚀 ~ updatePotion ~ data:", data);
+    Swal.fire({
+      icon: "success",
+      title: "Your potion is updated",
+      timer: 2000,
+    });
     dispatch(fetchMyCauldron());
   } catch (error) {
     console.log("🚀 ~ postPotion ~ error:", error);
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: error.response.data.message,
+      text: error?.response?.data?.message,
     });
   }
 };
@@ -84,13 +94,18 @@ export const deletePotion = (potion) => async (dispatch) => {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
       },
     });
+    Swal.fire({
+      icon: "success",
+      title: "Your potion is deleted",
+      timer: 2000,
+    });
     dispatch(fetchMyCauldron());
   } catch (error) {
     console.log("🚀 ~ deletePotion ~ error:", error);
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: error.response.data.message,
+      text: error?.response?.data?.message,
     });
   }
 };

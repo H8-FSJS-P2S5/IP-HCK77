@@ -10,6 +10,7 @@ import {
 } from "../features/potion/potionSlice";
 import { FaRegEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function MyCauldronPage() {
   const profileRedux = useSelector((state) => state.profileReducer.value);
@@ -91,7 +92,26 @@ export default function MyCauldronPage() {
                       <Button
                         className="bg-red-600 hover:bg-red-500 text-white"
                         style={{ width: "40%" }}
-                        onClick={() => dispatch(deletePotion(potion))}
+                        onClick={() => {
+                          Swal.fire({
+                            title: "Are you sure?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Yes, delete it!",
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              dispatch(deletePotion(potion));
+                              Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success",
+                              });
+                            }
+                          });
+                        }}
                       >
                         Delete
                       </Button>

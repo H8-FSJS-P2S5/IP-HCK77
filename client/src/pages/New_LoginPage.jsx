@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { FaGithub } from "react-icons/fa"; // Import icons for Google and GitHub
+import Swal from "sweetalert2";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -35,6 +36,11 @@ export default function LoginPage() {
         );
         localStorage.setItem("access_token", data.access_token);
         navigate("/"); // Redirect to the home page or any other page after login
+        Swal.fire({
+          icon: "success",
+          title: "Login Success",
+          timer: 2000,
+        });
       },
     });
 

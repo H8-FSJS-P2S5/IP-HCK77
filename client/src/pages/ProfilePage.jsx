@@ -5,6 +5,7 @@ import { fetchProfile } from "../features/profile/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { serverInstance } from "../helpers/axiosInstance";
 import { fetchMyCauldron } from "../features/myCauldron/myCauldronSlice";
+import Swal from "sweetalert2";
 
 export default function ProfilePage() {
   const [fullName, setFullName] = useState("");
@@ -19,30 +20,44 @@ export default function ProfilePage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await serverInstance.put(
-      "/profile",
-      {
-        fullName,
-        profilePicture,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    try {
+      await serverInstance.put(
+        "/profile",
+        {
+          fullName,
+          profilePicture,
         },
-      }
-    );
-    await serverInstance.put(
-      `/cauldrons/${myCauldronsRedux[0]?.id}`,
-      {
-        name: cauldronName,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        }
+      );
+      await serverInstance.put(
+        `/cauldrons/${myCauldronsRedux[0]?.id}`,
+        {
+          name: cauldronName,
         },
-      }
-    );
-    navigate("/user/my-cauldron");
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        }
+      );
+      navigate("/user/my-cauldron");
+      Swal.fire({
+        icon: "success",
+        title: "Success update profile",
+        timer: 1500,
+      });
+    } catch (error) {
+      console.log("🚀 ~ handleSubmit ~ error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error?.message || error?.response?.data?.message,
+      });
+    }
   };
 
   useEffect(() => {
